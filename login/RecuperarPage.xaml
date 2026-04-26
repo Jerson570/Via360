@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="login.RecuperarPage"
+             Title="Recuperar Contraseña"
+             BackgroundColor="White"
+             Shell.BackgroundColor="White"
+             Shell.ForegroundColor="#512BD4"
+             Shell.TitleColor="#512BD4">
+    
+    <VerticalStackLayout Padding="30" Spacing="20">
+        <Label Text="Introduce tu correo para enviarte un código de restablecimiento." 
+               HorizontalTextAlignment="Center"/>
+
+        <Border Stroke="#E0E0E0" Padding="10,2" Margin="0,10">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="15"/>
+            </Border.StrokeShape>
+
+            <Entry x:Name="TxtEmailRecuperar" 
+           Placeholder="Correo electrónico" 
+           PlaceholderColor="Gray"
+           TextColor="Black"
+           Keyboard="Email"
+           HeightRequest="45"/>
+        </Border>
+
+        <Button Text="ENVIAR CÓDIGO" 
+        Clicked="OnEnviarCodigoClicked"
+        BackgroundColor="#512BD4" 
+        TextColor="White" />
+    </VerticalStackLayout>
+
+</ContentPage>

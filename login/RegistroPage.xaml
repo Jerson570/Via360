@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="login.RegistroPage"
+             Title="Registrarse"
+             BackgroundColor="White"
+             Shell.BackgroundColor="White"
+             Shell.ForegroundColor="#512BD4"
+             Shell.TitleColor="#512BD4">
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="15">
+            <Label Text="Crear Cuenta Nueva" 
+                   FontSize="24" 
+                   FontAttributes="Bold" 
+                   TextColor="#512BD4"
+                   HorizontalOptions="Center" />
+            
+            <Border Stroke="#E0E0E0" Padding="10,2">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
+                <Picker x:Name="PickerRol" Title="Selecciona tu rol" TextColor="Black">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Ciudadano</x:String>
+                            <x:String>Autoridad</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+            </Border>
+            
+            <Border Stroke="#E0E0E0" Padding="10,2">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
+                <Entry x:Name="TxtNombre" Placeholder="Nombre completo" TextColor="Black" PlaceholderColor="Gray" HeightRequest="45"/>
+            </Border>
+
+            <Border Stroke="#E0E0E0" Padding="10,2">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
+                <Entry x:Name="TxtEmail" Placeholder="Correo electrónico" Keyboard="Email" TextColor="Black" PlaceholderColor="Gray" HeightRequest="45"/>
+            </Border>
+
+            <Border Stroke="#E0E0E0" Padding="10,2">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
+                <Entry x:Name="TxtPassword" Placeholder="Contraseña" IsPassword="True" TextColor="Black" PlaceholderColor="Gray" HeightRequest="45"/>
+            </Border>
+
+            <Button Text="Registrarse"
+                    Clicked="OnFinalizarRegistroClicked"
+                    BackgroundColor="#512BD4"
+                    TextColor="White"
+                    HeightRequest="50"
+                    CornerRadius="25"
+                    Margin="0,20"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
