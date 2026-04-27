@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Via360-Backend/">
+    <Project Path="Via360-Backend/Via360.API/Via360.API.csproj" />
+  </Folder>
   <Project Path="Via360-App/Via360.App.csproj">
     <Deploy Solution="Debug|*" />
   </Project>
