@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace login
+namespace Via360.App
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

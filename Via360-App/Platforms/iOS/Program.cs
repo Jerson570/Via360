@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace login
+namespace Via360.App
 {
     public class Program
     {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell
-    x:Class="login.AppShell"
+    x:Class="Via360.App.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:login"
+    xmlns:local="clr-namespace:Via360.App"
     Title="via360">
 
     <ShellContent

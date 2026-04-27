@@ -1,6 +1,6 @@
 using Firebase.Database;
 using Firebase.Database.Query;
-namespace login;
+namespace Via360.App;
 
 public partial class RegistroPage : ContentPage
 {

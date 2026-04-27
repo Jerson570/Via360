@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using Microsoft.Maui.Controls;
-namespace login
+namespace Via360.App
 {
 
     public partial class MainPage : ContentPage

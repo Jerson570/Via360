@@ -1,5 +1,5 @@
 using System.Text.RegularExpressions;
-namespace login;
+namespace Via360.App;
 
 public partial class RecuperarPage : ContentPage
 {

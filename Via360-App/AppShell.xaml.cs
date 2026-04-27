@@ -1,4 +1,4 @@
-﻿namespace login
+﻿namespace Via360.App
 {
     public partial class AppShell : Shell
     {

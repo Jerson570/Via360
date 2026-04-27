@@ -1,3 +1,5 @@
 <Solution>
-  <Project Path="login/login.csproj" />
+  <Project Path="Via360-App/Via360.App.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
 </Solution>

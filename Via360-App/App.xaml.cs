@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace login
+namespace Via360.App
 {
     public partial class App : Application
     {

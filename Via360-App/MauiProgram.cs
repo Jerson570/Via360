@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace login
+namespace Via360.App
 {
     public static class MauiProgram
     {
