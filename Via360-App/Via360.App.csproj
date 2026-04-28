@@ -75,6 +75,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Pages\NotificacionesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="RecuperarPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
