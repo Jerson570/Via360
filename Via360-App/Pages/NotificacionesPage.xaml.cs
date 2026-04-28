@@ -1,4 +1,4 @@
-namespace login.Pages;
+namespace Via360.App.Pages;
 
 public partial class NotificacionesPage : ContentPage
 {

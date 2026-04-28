@@ -1,9 +1,9 @@
-using login.Models;
-using login.Services;
+using Via360.App.Models;
+using Via360.App.Services;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace login.Pages;
+namespace Via360.App.Pages;
 public partial class PantallaPrincipal : ContentPage
 {
     private readonly MapaService _mapaService = new MapaService();

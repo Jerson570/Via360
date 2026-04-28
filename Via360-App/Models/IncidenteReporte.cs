@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace login.Models
+namespace Via360.App.Models
 {
     public class IncidenteReporte
     {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:conv="clr-namespace:login.Converters"
-             x:Class="login.Pages.PantallaPrincipal"
+             xmlns:conv="clr-namespace:Via360.App.Converters"
+             x:Class="Via360.App.Pages.PantallaPrincipal"
              Shell.NavBarIsVisible="False"
              BackgroundColor="White">
 
