@@ -5,4 +5,5 @@
   <Project Path="Via360-App/Via360.App.csproj">
     <Deploy Solution="Debug|*" />
   </Project>
+  <Project Path="Via360.Shared/Via360.Shared.csproj" Id="b171e8d1-75e6-414a-a1de-e60407b98baf" />
 </Solution>

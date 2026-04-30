@@ -82,6 +82,10 @@
 	  <MauiXaml Update="Pages\NotificacionesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <ProjectReference Include="..\Via360.Shared\Via360.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="RecuperarPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
