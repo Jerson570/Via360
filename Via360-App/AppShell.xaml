@@ -4,12 +4,32 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Via360.App"
+    xmlns:pages="clr-namespace:Via360.App.Pages"
     Title="via360">
 
     <ShellContent
-        Title="via 360"
+        Title="via360"
         ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Route="MainPage"/>
 
+    <!-- Registro -->
+    <ShellContent
+        ContentTemplate="{DataTemplate local:RegistroPage}"
+        Route="RegistroPage"/>
+
+    <!-- Recuperar contraseña -->
+    <ShellContent
+        ContentTemplate="{DataTemplate local:RecuperarPage}"
+        Route="RecuperarPage"/>
+
+    <!-- Pantalla principal ciudadano -->
+    <ShellContent
+        ContentTemplate="{DataTemplate pages:PantallaPrincipal}"
+        Route="PantallaPrincipal"/>
+
+    <!-- Notificaciones -->
+    <ShellContent
+        ContentTemplate="{DataTemplate pages:NotificacionesPage}"
+        Route="NotificacionesPage"/>
 
 </Shell>

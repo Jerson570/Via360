@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:conv="clr-namespace:Via360.App.Converters"
+             x:Class="Via360.App.Pages.PantallaPrincipal"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="White">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:HtmlSourceConverter x:Key="HtmlConv"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <WebView Source="{Binding HtmlMapa, Converter={StaticResource HtmlConv}}"
+                 HorizontalOptions="Fill"
+                 VerticalOptions="Fill" />
+
+        <ScrollView Orientation="Horizontal" 
+                    VerticalOptions="Start" 
+                    HorizontalOptions="Fill"
+                    Margin="10,60,10,0" 
+                    HorizontalScrollBarVisibility="Never">
+            <HorizontalStackLayout Spacing="10">
+                <Button Text="🗺️ Todos" Style="{StaticResource ChipStyle}" Clicked="OnFiltrarTodos"/>
+                <Button Text="🕳️ Baches" Style="{StaticResource ChipStyle}" Clicked="OnFiltrarBaches"/>
+                <Button Text="🚦 Semáforos" Style="{StaticResource ChipStyle}" Clicked="OnFiltrarSemaforos"/>
+                <Button Text="🚨 Accidentes" Style="{StaticResource ChipStyle}" Clicked="OnFiltrarAccidentes"/>
+            </HorizontalStackLayout>
+        </ScrollView>
+
+        <Button Text="+"
+                FontSize="30"
+                FontAttributes="Bold"
+                TextColor="White"
+                BackgroundColor="#512BD4"
+                HeightRequest="65"
+                WidthRequest="65"
+                CornerRadius="32"
+                VerticalOptions="End"
+                HorizontalOptions="End"
+                Margin="0,0,20,100"
+                Shadow="{Shadow Brush=Black, Offset='0,5', Radius=10, Opacity=0.3}"
+                Clicked="OnNuevoReporteClicked"/>
+
+        <Border VerticalOptions="End" 
+                Margin="20,0,20,20" 
+                Padding="10"
+                HeightRequest="70"
+                BackgroundColor="White"
+                StrokeShape="RoundRectangle 35"
+                Shadow="{Shadow Brush=Black, Offset='0,2', Radius=10, Opacity=0.2}">
+
+            <Grid ColumnDefinitions="*,*,*,*">
+                <VerticalStackLayout Grid.Column="0" VerticalOptions="Center">
+                    <Label Text="📍" FontSize="20" HorizontalOptions="Center"/>
+                    <Label Text="Mapa" FontSize="10" TextColor="#512BD4" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnNotificacionesClicked" />
+                    </VerticalStackLayout.GestureRecognizers>
+
+                    <Label Text="🔔" FontSize="20" HorizontalOptions="Center"/>
+                    <Label Text="Notificaciones" FontSize="10" TextColor="Gray" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="2" VerticalOptions="Center">
+                    <Label Text="📄" FontSize="20" HorizontalOptions="Center"/>
+                    <Label Text="Mis Reportes" FontSize="10" TextColor="Gray" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="3" VerticalOptions="Center"> 
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnPerfilClicked" />
+                    </VerticalStackLayout.GestureRecognizers>
+                    <Label Text="👤" FontSize="20" HorizontalOptions="Center"/>
+                    <Label Text="Perfil" FontSize="10" TextColor="Gray" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+﻿    using System.Text.RegularExpressions;
 using Microsoft.Maui.Controls;
 namespace Via360.App
 {
@@ -54,7 +54,7 @@ namespace Via360.App
 
             // primera validacion
             string rol = esAutoridad ? "Autoridad" : "Ciudadano";
-            await this.DisplayAlertAsync("Vía360", $"Iniciando sesión como {rol}...", "Aceptar");
+            await Shell.Current.GoToAsync("//PantallaPrincipal");
         }
 
         private async void OnForgotPasswordClicked(object sender, EventArgs e)

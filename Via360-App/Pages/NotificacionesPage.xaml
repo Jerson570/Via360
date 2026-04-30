@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Via360.App.Pages.NotificacionesPage"
+             Background="#F8F6FF">
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Label Text="Notificaciones" FontSize="28" FontAttributes="Bold" TextColor="#512BD4" Margin="0,10"/>
+
+        <Border Padding="15" StrokeShape="RoundRectangle 15" BackgroundColor="White">
+            <VerticalStackLayout Spacing="5">
+                <Label Text="📢 ¡Obra finalizada!" FontAttributes="Bold" FontSize="16"/>
+                <Label Text="El bache en la Cra 76 ha sido reparado con éxito." TextColor="Gray"/>
+                <Label Text="Hace 2 horas" FontSize="10" TextColor="Silver"/>
+            </VerticalStackLayout>
+        </Border>
+
+        <Border Padding="15" StrokeShape="RoundRectangle 15" BackgroundColor="White">
+            <VerticalStackLayout Spacing="5">
+                <Label Text="⚠️ Alerta de tráfico" FontAttributes="Bold" FontSize="16" TextColor="#D32F2F"/>
+                <Label Text="Cierre vial en la Cll 30 por mantenimiento de semáforos." TextColor="Gray"/>
+                <Label Text="Hace 5 horas" FontSize="10" TextColor="Silver"/>
+            </VerticalStackLayout>
+        </Border>
+    </VerticalStackLayout>
+</ContentPage>
