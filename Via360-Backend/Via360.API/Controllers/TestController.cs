@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Via360.Shared.Models; // Aquí es donde se conectan
 
 namespace Via360.API.Controllers
 {
@@ -7,6 +8,14 @@ namespace Via360.API.Controllers
     public class TestController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Get() => Ok("API funcionando con controladores.");
+        public IActionResult Get()
+        {
+            var miReporte = new Reporte
+            {
+                Id = "1",
+                Descripcion = "Hueco en la vía principal"
+            };
+            return Ok(miReporte);
+        }
     }
 }
