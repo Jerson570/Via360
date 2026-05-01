@@ -6,23 +6,21 @@ namespace Via360.Shared.Models
 {
     public class Reporte
     {
-        private string idReporte { get; set; } = "string.Empty";
-        private DateTime fecha { get; set; } = DateTime.Now;
-        private enum TipoIncidente
+        private string idReporte { get; set; }
+        private DateTime fecha { get; set; }
+        private TipoIncidente tipo { get; set; }
+        private string descripcion { get; set; }
+        private Estado estado {  get; set; }
+        public Reporte()
         {
-            Accidente,
-            SemáforoAveriado,
-            Bache,
-            ObstrucciónVial,
-            ObraEnLaVía,
-            Otro
+            // Constructor vacío
         }
-        private string descripcion { get; set; } = "";
-        private enum Estado
+        public Reporte(TipoIncidente tipoInicial, string descripcion, Estado estadoInicial)
         {
-            Pendiente,
-            EnProceso,
-            Resuelto
+            this.tipo = tipoInicial;
+            this.descripcion=descripcion;
+            this.fecha= DateTime.Now;
+            this.estado=estadoInicial;
         }
     }
 }
