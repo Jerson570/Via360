@@ -10,14 +10,14 @@ namespace Via360.Shared.Models
         public string IdUsuario { get; set; }
         public DateTime Fecha { get; set; }
         public TipoIncidente Tipo { get; set; }
-        public string Ubicacion { get; set; }
+        public Ubicacion Ubicacion { get; set; }
         public string Descripcion { get; set; }
         public EstadoReporte Estado {  get; set; }
         public Reporte()
         {
 
         }
-        public Reporte(string IdUsuario, TipoIncidente tipoInicial, string descripcion, string ubicacion, EstadoReporte estadoInicial)
+        public Reporte(string IdUsuario, TipoIncidente tipoInicial, string descripcion, Ubicacion ubicacion, EstadoReporte estadoInicial)
         {
             this.IdReporte = Guid.NewGuid().ToString();
             this.IdUsuario = IdUsuario;
