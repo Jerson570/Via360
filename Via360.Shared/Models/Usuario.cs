@@ -5,16 +5,17 @@ namespace Via360.Shared.Models
 {
     public abstract class Usuario
     {
-        public string IdUsuario { get; private set; }
+        public string IdUsuario { get; set; }
         public string Nombre { get; set; }
         public string Email { get; set; }
-        public string HashContraseña { get; set; }
+        public DateTime FechaRegistro {  get; set; }
         public Usuario() { }
-        public Usuario(string nombre, string email, string ContraseñaPlana)
+        public Usuario(string id, string nombre, string email)
         {
-            this.IdUsuario = Guid.NewGuid().ToString();
+            this.IdUsuario = id;
             this.Nombre = nombre;
             this.Email = email;
+            this.FechaRegistro = DateTime.Now;
         }
     }
 }
