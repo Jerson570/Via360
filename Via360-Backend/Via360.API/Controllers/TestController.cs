@@ -12,7 +12,7 @@ namespace Via360.API.Controllers
         {
             var miReporte = new Reporte
             {
-                Id = "1",
+                IdUsuario = "1",
                 Descripcion = "Hueco en la vía principal"
             };
             return Ok(miReporte);

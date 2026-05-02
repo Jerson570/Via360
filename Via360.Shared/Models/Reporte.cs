@@ -6,9 +6,9 @@ namespace Via360.Shared.Models
 {
     public class Reporte
     {
-        public string IdReporte { get; private set; }
+        public string IdReporte { get; set; }
         public string IdUsuario { get; set; }
-        public DateTime Fecha { get; private set; }
+        public DateTime Fecha { get; set; }
         public TipoIncidente Tipo { get; set; }
         public string Ubicacion { get; set; }
         public string Descripcion { get; set; }
