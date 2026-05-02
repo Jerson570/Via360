@@ -6,21 +6,24 @@ namespace Via360.Shared.Models
 {
     public class Reporte
     {
-        private string idReporte { get; set; }
-        private DateTime fecha { get; set; }
-        private TipoIncidente tipo { get; set; }
-        private string descripcion { get; set; }
-        private Estado estado {  get; set; }
+        public string IdReporte { get; private set; }
+        public DateTime Fecha { get; private set; }
+        public TipoIncidente Tipo { get; set; }
+        public string Ubicacion { get; set; }
+        public string Descripcion { get; set; }
+        public EstadoReporte Estado {  get; set; }
         public Reporte()
         {
             // Constructor vacío
         }
-        public Reporte(TipoIncidente tipoInicial, string descripcion, Estado estadoInicial)
+        public Reporte(TipoIncidente tipoInicial, Usuario usuario, string descripcion, string ubicacion, EstadoReporte estadoInicial)
         {
-            this.tipo = tipoInicial;
-            this.descripcion=descripcion;
-            this.fecha= DateTime.Now;
-            this.estado=estadoInicial;
+            this.IdReporte = Guid.NewGuid().ToString();
+            this.Fecha = DateTime.Now;
+            this.Tipo = tipoInicial;
+            this.Ubicacion = ubicacion;
+            this.Descripcion = descripcion;
+            this.Estado = EstadoReporte.Pendiente;
         }
     }
 }
