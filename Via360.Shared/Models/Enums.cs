@@ -13,7 +13,7 @@ namespace Via360.Shared.Models
         ObraEnLaVía,
         Otro
     }
-    public enum Estado
+    public enum EstadoReporte
     {
         Pendiente,
         EnProceso,
