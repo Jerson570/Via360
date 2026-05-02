@@ -10,7 +10,7 @@ namespace Via360.Shared.Models
         public double Longitud { get; set; }
         public string DireccionTexto { get; set; }
         public Ubicacion() { }
-        public Ubicacion(double latitud, double longitud, string direccion)
+        public Ubicacion(double latitud, double longitud, string direccion = "")
         {
             this.Latitud = latitud;
             this.Longitud = longitud;
