@@ -8,7 +8,7 @@ public partial class PantallaPrincipal : ContentPage
 {
     private readonly MapaService _mapaService = new MapaService();
 
-    // 1. Necesitamos esta variable para saber qué filtro aplicar
+  
     private string _filtroActual = "todos";
     private Button? _botonActivo;
 
@@ -17,8 +17,9 @@ public partial class PantallaPrincipal : ContentPage
     public int TotalPendientes => Reportes.Count(r => r.Estado == "pendiente");
     public int TotalEnProceso => Reportes.Count(r => r.Estado == "en_proceso");
     public int TotalResueltos => Reportes.Count(r => r.Estado == "resuelto");
+    public int CantidadNotificaciones => 1; 
+    public bool TieneNotificacionesNuevas => CantidadNotificaciones > 0;
 
-    // 2. Modificamos el "get" para que filtre de verdad antes de generar el HTML
     public string HtmlMapa
     {
         get
@@ -56,10 +57,9 @@ public partial class PantallaPrincipal : ContentPage
         OnPropertyChanged(nameof(HtmlMapa));
     }
 
-    // 3. LÓGICA DE FILTRADO MEJORADA
+    // filtrar
     private void AplicarFiltro(object sender, string tipo)
     {
-        // Feedback visual del botón
         if (_botonActivo != null)
         {
             _botonActivo.BackgroundColor = Color.FromArgb("#F0F0F0");
@@ -73,7 +73,7 @@ public partial class PantallaPrincipal : ContentPage
             _botonActivo = btn;
         }
 
-        // Cambiamos el valor del filtro y notificamos el cambio al mapa
+        // Cambios en el mapa
         _filtroActual = tipo;
         OnPropertyChanged(nameof(HtmlMapa));
     }
@@ -88,7 +88,7 @@ public partial class PantallaPrincipal : ContentPage
         await this.DisplayAlertAsync("Vía360", "Próximamente: Crear reporte", "OK");
     }
 
-    // --- EVENTOS DE NAVEGACIÓN (Para que no den error) ---
+    // cambios de barra de menu
     private async void OnExplorarClicked(object sender, EventArgs e) => await Shell.Current.GoToAsync("//PantallaPrincipal");
     private async void OnNotificacionesClicked(object sender, EventArgs e) => await Shell.Current.GoToAsync("//NotificacionesPage");
     private async void OnMisReportesClicked(object sender, EventArgs e) => await this.DisplayAlertAsync("Mis Vías", "Aún no has reportado nada.", "OK");

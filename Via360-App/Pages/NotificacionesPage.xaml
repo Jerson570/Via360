@@ -2,24 +2,127 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Via360.App.Pages.NotificacionesPage"
+             Shell.NavBarIsVisible="False"
              Background="#F8F6FF">
-    <VerticalStackLayout Padding="20" Spacing="15">
-        <Label Text="Notificaciones" FontSize="28" FontAttributes="Bold" TextColor="#512BD4" Margin="0,10"/>
+    <Grid RowDefinitions="Auto, Auto, *, Auto">
+        <Grid Grid.Row="0" 
+          BackgroundColor="#512BD4" 
+          HeightRequest="90"
+          Padding="25,35,0,0">
+            <Label Text="Centro de Avisos" 
+               TextColor="White" 
+               FontSize="20" 
+               FontAttributes="Bold"
+               VerticalOptions="Center"/>
+        </Grid>
 
-        <Border Padding="15" StrokeShape="RoundRectangle 15" BackgroundColor="White">
-            <VerticalStackLayout Spacing="5">
-                <Label Text="📢 ¡Obra finalizada!" FontAttributes="Bold" FontSize="16"/>
-                <Label Text="El bache en la Cra 76 ha sido reparado con éxito." TextColor="Gray"/>
-                <Label Text="Hace 2 horas" FontSize="10" TextColor="Silver"/>
-            </VerticalStackLayout>
-        </Border>
+        <VerticalStackLayout Grid.Row="1" Padding="20,10,20,5" BackgroundColor="Transparent">
+            <Button x:Name="BtnMarcarTodo"
+                    Text="Marcar todas como leídas" 
+                    FontSize="13" 
+                    HorizontalOptions="Start"
+                    BackgroundColor="Transparent"
+                    TextColor="#512BD4" 
+                    FontAttributes="Bold"
+                    Padding="0"
+                    Clicked="OnMarcarTodoLeidoClicked">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding HayNotificacionesSinLeer}" Value="False">
+                        <Setter Property="TextColor" Value="#BDBDBD" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+        </VerticalStackLayout>
 
-        <Border Padding="15" StrokeShape="RoundRectangle 15" BackgroundColor="White">
-            <VerticalStackLayout Spacing="5">
-                <Label Text="⚠️ Alerta de tráfico" FontAttributes="Bold" FontSize="16" TextColor="#D32F2F"/>
-                <Label Text="Cierre vial en la Cll 30 por mantenimiento de semáforos." TextColor="Gray"/>
-                <Label Text="Hace 5 horas" FontSize="10" TextColor="Silver"/>
-            </VerticalStackLayout>
+        <CollectionView Grid.Row="2" 
+                        ItemsSource="{Binding MisNotificaciones}"
+                        Margin="15,5">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="0,0,0,10" Padding="15" StrokeShape="RoundRectangle 15">
+                        <Border.Triggers>
+                            <DataTrigger TargetType="Border" Binding="{Binding FueLeida}" Value="False">
+                                <Setter Property="BackgroundColor" Value="#F0EDFF" />
+                                <Setter Property="Stroke" Value="#512BD4" />
+                                <Setter Property="StrokeThickness" Value="1" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Border" Binding="{Binding FueLeida}" Value="True">
+                                <Setter Property="BackgroundColor" Value="White" />
+                                <Setter Property="Stroke" Value="Transparent" />
+                            </DataTrigger>
+                        </Border.Triggers>
+
+                        <Grid ColumnDefinitions="40, *" ColumnSpacing="10">
+                            <Label Text="{Binding Icono}" FontSize="24" VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="1" Spacing="2">
+                                <Label Text="{Binding Titulo}" FontAttributes="Bold" FontSize="15" TextColor="#333"/>
+                                <Label Text="{Binding Resumen}" TextColor="#666" FontSize="13"/>
+                                <Label Text="{Binding Fecha, StringFormat='{0:dd MMM, hh:mm tt}'}" FontSize="10" TextColor="#999"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnNotificacionTapped" CommandParameter="{Binding .}"/>
+                        </Border.GestureRecognizers>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Border Grid.Row="3" Margin="20,0,20,20" Padding="10" HeightRequest="70"
+                BackgroundColor="White" StrokeShape="RoundRectangle 35">
+            <Grid ColumnDefinitions="*,*,*,*">
+                <VerticalStackLayout Grid.Column="0">
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnExplorarClicked" />
+                    </VerticalStackLayout.GestureRecognizers>
+                    <Label Text="📍" FontSize="20" HorizontalOptions="Center"/>
+                    <Label Text="Mapa" FontSize="10" TextColor="Gray" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="1">
+                    <Label Text="🔔" FontSize="20" HorizontalOptions="Center"/>
+                    <Label Text="Avisos" FontSize="10" TextColor="#512BD4" HorizontalOptions="Center" FontAttributes="Bold"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="2">
+                    <Label Text="📄" FontSize="20" HorizontalOptions="Center"/>
+                    <Label Text="Mis Vías" FontSize="10" TextColor="Gray" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="3">
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnPerfilClicked" />
+                    </VerticalStackLayout.GestureRecognizers>
+                    <Label Text="👤" FontSize="20" HorizontalOptions="Center"/>
+                    <Label Text="Perfil" FontSize="10" TextColor="Gray" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Grid>
         </Border>
-    </VerticalStackLayout>
+        <Grid x:Name="PopupDetalle" 
+          Grid.RowSpan="4" 
+          IsVisible="False" 
+          BackgroundColor="#80000000">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCerrarPopupClicked" />
+            </Grid.GestureRecognizers>
+
+            <Border VerticalOptions="Center" HorizontalOptions="Center" Margin="30" BackgroundColor="White" StrokeShape="RoundRectangle 20">
+                <Grid RowDefinitions="Auto, Auto, *, Auto">
+                    <Image Grid.Row="0" Source="{Binding SelectedNotif.FotoUrl}" HeightRequest="200" Aspect="AspectFill"/>
+
+                    <VerticalStackLayout Grid.Row="1" Padding="20">
+                        <Label Text="{Binding SelectedNotif.Titulo}" FontAttributes="Bold" FontSize="20"/>
+                    </VerticalStackLayout>
+
+                    <ScrollView Grid.Row="2" Padding="20">
+                        <Label Text="{Binding SelectedNotif.DescripcionDetallada}"/>
+                    </ScrollView>
+
+                    <Button Grid.Row="3" Text="Cerrar" Clicked="OnCerrarPopupClicked" Margin="20"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+   
 </ContentPage>

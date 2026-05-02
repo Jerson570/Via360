@@ -64,7 +64,24 @@
                     </VerticalStackLayout.GestureRecognizers>
 
                     <Label Text="🔔" FontSize="20" HorizontalOptions="Center"/>
-                    <Label Text="Notificaciones" FontSize="10" TextColor="Gray" HorizontalOptions="Center"/>
+                    <Border BackgroundColor="Red"
+                         StrokeThickness="0"
+                         HeightRequest="16"
+                         WidthRequest="16"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Start"
+                         Margin="12,-5,0,0"
+                         StrokeShape="RoundRectangle 8"
+                         IsVisible="{Binding TieneNotificacionesNuevas}">
+
+                        <Label Text="{Binding CantidadNotificaciones}"
+                          TextColor="White"
+                          FontSize="9"
+                          FontAttributes="Bold"
+                          HorizontalOptions="Center"
+                          VerticalOptions="Center"/>
+                    </Border>
+                    <Label Text="Notificaciones" FontSize="10" TextColor="Gray" HorizontalOptions="Center" Margin="0,25,0,0"/>
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Grid.Column="2" VerticalOptions="Center">
