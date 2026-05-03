@@ -370,3 +370,6 @@ secrets.json
 # Configuración de entorno (¡Cuidado aquí!)
 appsettings.json
 appsettings.Development.json
+
+# configuración servicios de google
+google-services.json
