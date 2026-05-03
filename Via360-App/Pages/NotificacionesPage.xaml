@@ -7,7 +7,7 @@
     <Grid RowDefinitions="Auto, Auto, *, Auto">
         <Grid Grid.Row="0" 
           BackgroundColor="#512BD4" 
-          HeightRequest="90"
+          HeightRequest="100"
           Padding="25,35,0,0">
             <Label Text="Centro de Avisos" 
                TextColor="White" 
@@ -82,12 +82,12 @@
 
                 <VerticalStackLayout Grid.Column="1">
                     <Label Text="🔔" FontSize="20" HorizontalOptions="Center"/>
-                    <Label Text="Avisos" FontSize="10" TextColor="#512BD4" HorizontalOptions="Center" FontAttributes="Bold"/>
+                    <Label Text="Notificaciones" FontSize="10" TextColor="#512BD4" HorizontalOptions="Center" FontAttributes="Bold"/>
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Grid.Column="2">
                     <Label Text="📄" FontSize="20" HorizontalOptions="Center"/>
-                    <Label Text="Mis Vías" FontSize="10" TextColor="Gray" HorizontalOptions="Center"/>
+                    <Label Text="Mis Reportes" FontSize="10" TextColor="Gray" HorizontalOptions="Center"/>
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Grid.Column="3">

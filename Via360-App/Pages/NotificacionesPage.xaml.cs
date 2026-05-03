@@ -1,4 +1,4 @@
-using Via360.App.Models;
+using Via360.Shared.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
