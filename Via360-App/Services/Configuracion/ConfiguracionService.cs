@@ -1,0 +1,40 @@
+﻿using System.Reflection;
+using System.Text.Json;
+
+namespace Via360.App.Services
+{
+    public class ConfiguracionService
+    {
+        public string CloudName { get; private set; }
+        public string UploadPreset { get; private set; }
+
+        public ConfiguracionService()
+        {
+            try
+            {
+                var assembly = IntrospectionExtensions.GetTypeInfo(typeof(ConfiguracionService)).Assembly;
+
+                Stream stream = assembly.GetManifestResourceStream("Via360.App.Resources.Raw.appsettings.json");
+
+                if (stream == null)
+                {
+                    // para ver en la consola qué nombres de recursos existen realmente
+                    var names = assembly.GetManifestResourceNames();
+                    foreach (var name in names) System.Diagnostics.Debug.WriteLine($"Recurso: {name}");
+                    throw new Exception(">>>>> No se encontró el archivo appsettings.json como Recurso Incrustado.");
+                }
+
+                using var reader = new StreamReader(stream);
+                var json = reader.ReadToEnd();
+                var config = JsonDocument.Parse(json);
+
+                CloudName = config.RootElement.GetProperty("Cloudinary").GetProperty("CloudName").GetString();
+                UploadPreset = config.RootElement.GetProperty("Cloudinary").GetProperty("UploadPreset").GetString();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error cargando configuración: {ex.Message}");
+            }
+        }
+    }
+}
