@@ -1,4 +1,22 @@
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
+
 var builder = WebApplication.CreateBuilder(args);
+var firebaseConfig = builder.Configuration.GetSection("FirebaseSettings");
+var credentialPath = firebaseConfig["CredentialFilePath"];
+
+if (!string.IsNullOrEmpty(credentialPath) && File.Exists(credentialPath))
+{
+    FirebaseApp.Create(new AppOptions()
+    {
+        Credential = GoogleCredential.FromFile(credentialPath),
+        ProjectId = firebaseConfig["ProjectId"]
+    });
+}
+else
+{
+    Console.WriteLine(">>>>> E R R O R   C R I T I C O : No se encontró la llave de Firebase en: " + credentialPath);
+}
 
 // servicios
 builder.Services.AddOpenApi();
