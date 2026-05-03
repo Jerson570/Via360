@@ -36,7 +36,7 @@ namespace Via360.API.Controllers
             // Esto confirma que el objeto llegó y se deserializó correctamente
             Console.WriteLine($"[NUEVO REPORTE] Tipo: {nuevoReporte.Tipo}");
             Console.WriteLine($"[UBICACIÓN] Lat: {nuevoReporte.Ubicacion.Latitud}, Lon: {nuevoReporte.Ubicacion.Longitud}");
-            Console.WriteLine($"[USUARIO] ID: {nuevoReporte.IdUsuario}");
+            Console.WriteLine($"[USUARIO] IdUsuario: {nuevoReporte.IdUsuario}");
 
             try
             {
