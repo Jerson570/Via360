@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Via360.App.Models
+
+namespace Via360.Shared.Models
 {
     public class IncidenteReporte
     {
@@ -31,12 +32,12 @@ namespace Via360.App.Models
             _ => "⚪"
         };
 
-        public Color ColorEstado => Estado switch
+        public string ColorIcono => Estado switch
         {
-            "pendiente" => Color.FromArgb("#FF4757"),
-            "en_proceso" => Color.FromArgb("#FFA502"),
-            "resuelto" => Color.FromArgb("#2ED573"),
-            _ => Color.FromArgb("#A4B0BE")
+            "pendiente" => "#FF4757",
+            "en_proceso" => "#FFA502",
+            "resuelto" => "#2ED573",
+            _ => "#A4B0BE"
         };
     }
 }

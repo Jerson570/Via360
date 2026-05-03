@@ -1,4 +1,4 @@
-﻿using Via360.App.Models;
+﻿using Via360.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

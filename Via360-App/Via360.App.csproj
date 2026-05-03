@@ -80,6 +80,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Pages\CrearReportePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\NotificacionesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -93,6 +96,10 @@
 	  <MauiXaml Update="RegistroPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Models\" />
 	</ItemGroup>
 
 </Project>

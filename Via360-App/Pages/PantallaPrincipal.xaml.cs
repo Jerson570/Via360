@@ -1,4 +1,4 @@
-using Via360.App.Models;
+using Via360.Shared.Models;
 using Via360.App.Services;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,7 +12,7 @@ public partial class PantallaPrincipal : ContentPage
     private string _filtroActual = "todos";
     private Button? _botonActivo;
 
-    public ObservableCollection<IncidenteReporte> Reportes { get; set; } = new();
+    public ObservableCollection<Via360.Shared.Models.IncidenteReporte> Reportes { get; set; } = new();
 
     public int TotalPendientes => Reportes.Count(r => r.Estado == "pendiente");
     public int TotalEnProceso => Reportes.Count(r => r.Estado == "en_proceso");
@@ -24,7 +24,8 @@ public partial class PantallaPrincipal : ContentPage
     {
         get
         {
-            var listaFiltrada = _filtroActual == "todos"
+
+            List<Via360.Shared.Models.IncidenteReporte> listaFiltrada = _filtroActual == "todos"
                 ? Reportes.ToList()
                 : Reportes.Where(r => r.Tipo == _filtroActual).ToList();
 
@@ -78,15 +79,19 @@ public partial class PantallaPrincipal : ContentPage
         OnPropertyChanged(nameof(HtmlMapa));
     }
 
+    private async void OnNuevoReporteClicked(object sender, EventArgs e)
+    {
+        // Esto abre la nueva pantalla como una "hoja" que sube desde abajo
+        await Navigation.PushModalAsync(new CrearReportePage());
+    }
+
+
     private void OnFiltrarTodos(object sender, EventArgs e) => AplicarFiltro(sender, "todos");
     private void OnFiltrarBaches(object sender, EventArgs e) => AplicarFiltro(sender, "bache");
     private void OnFiltrarSemaforos(object sender, EventArgs e) => AplicarFiltro(sender, "semaforo");
     private void OnFiltrarAccidentes(object sender, EventArgs e) => AplicarFiltro(sender, "accidente");
 
-    private async void OnNuevoReporteClicked(object sender, EventArgs e)
-    {
-        await this.DisplayAlertAsync("Vía360", "Próximamente: Crear reporte", "OK");
-    }
+    
 
     // cambios de barra de menu
     private async void OnExplorarClicked(object sender, EventArgs e) => await Shell.Current.GoToAsync("//PantallaPrincipal");
