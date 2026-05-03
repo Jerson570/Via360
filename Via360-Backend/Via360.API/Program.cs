@@ -1,17 +1,25 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+// servicios
 builder.Services.AddOpenApi();
-// Add controllers to the services collection
 builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Via360 API V1");
+    c.RoutePrefix = "swagger"; // url localhost:xxxx/swagger para acceder a la UI de Swagger
+});
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+app.UseAuthorization();
 app.MapControllers();
 
 app.UseHttpsRedirection();
