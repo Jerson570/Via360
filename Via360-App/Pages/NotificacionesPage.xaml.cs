@@ -35,7 +35,13 @@ public partial class NotificacionesPage : ContentPage
         {
             Id = "101",
             Titulo = "¡Reparación Iniciada!",
-            DescripcionDetallada = "La cuadrilla de bacheo ha llegado a la Cra 76. El tráfico estará restringido a un carril durante las próximas 4 horas.",
+            // Usamos \n para saltos de línea y el símbolo • para las viñetas
+            DescripcionDetallada = "Se han iniciado las labores de mantenimiento en este punto:\n\n" +
+                               "• TIPO: Bacheo y pavimentación.\n" +
+                               "• ESTADO: Cuadrilla en zona.\n" +
+                               "• IMPACTO: Cierre parcial de calzada.\n" +
+                               "• TIEMPO: Aprox. 4 horas de trabajo.\n\n" +
+                               "Se recomienda a los conductores tomar rutas alternas para evitar congestiones.",
             Fecha = DateTime.Now,
             FueLeida = false,
             Icono = "🚧",
