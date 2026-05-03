@@ -1,5 +1,6 @@
 ﻿using FirebaseAdmin;
 using Google.Cloud.Firestore;
+using Google.Cloud.Firestore.V1;
 using Via360.Shared.Models;
 
 namespace Via360.Api.Services
@@ -10,14 +11,24 @@ namespace Via360.Api.Services
         public FirestoreService(IConfiguration configuration)
         {
             var projectId = configuration["FirebaseSettings:ProjectId"];
+            var keyPath = configuration["FirebaseSettings:CredentialFilePath"];
             if (string.IsNullOrEmpty(projectId))
             {
                 throw new Exception("ERROR CRÍTICO: El ProjectId de Firebase no está configurado en appsettings");
             }
-            // El ProjectId debe coincidir con "via360-app" que configuramos antes
-            _db = FirestoreDb.Create("via360-app");
-        }
+            if (string.IsNullOrEmpty(keyPath) || !File.Exists(keyPath))
+            {
+                throw new Exception("ERROR CRÍTICO: La llave de Firebase no está configurada o no se encontró en appsettings");
+            }
+            // constructor del cliente con credenciales explícitas
+            FirestoreClient client = new FirestoreClientBuilder
+            {
+                CredentialsPath = keyPath
+            }.Build();
 
+            // El ProjectId debe coincidir con "via360-app"
+            _db = FirestoreDb.Create(projectId, client);
+        }
         public async Task GuardarUsuario(Usuario usuario)
         {
             // Usamos el IdUsuario (UID de Firebase) como el nombre del documento

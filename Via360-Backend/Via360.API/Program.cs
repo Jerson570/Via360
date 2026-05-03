@@ -1,4 +1,5 @@
 using FirebaseAdmin;
+using Via360.Api.Services;
 using Google.Apis.Auth.OAuth2;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,10 +20,7 @@ else
 }
 
 // servicios
-builder.Services.AddOpenApi();
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -32,6 +30,10 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader();
     });
 });
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddOpenApi();
+builder.Services.AddSingleton<FirestoreService>();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
