@@ -369,4 +369,4 @@ secrets.json
 
 # Configuración de entorno (¡Cuidado aquí!)
 appsettings.json
-!appsettings.Development.json
+appsettings.Development.json
