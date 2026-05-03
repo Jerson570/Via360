@@ -14,21 +14,7 @@ namespace Via360.API.Controllers
             _firestoreService = firestoreService;
         }
         [HttpPost("crear")]
-        public async Task<IActionResult> CrearReporte([FromBody] Reporte reporte)
-        {
-            try
-            {
-                await _firestoreService.GuardarReporte(reporte);
-                return Ok(new { mensaje = "Reporte vial creado exitosamente" });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error al crear el reporte: {ex.Message}");
-            }
-        }
-        // endpoint de Swagger: POST /api/reportes
-        [HttpPost]
-        public IActionResult RecibirReporte([FromBody] Reporte nuevoReporte)
+        public async Task<IActionResult> CrearReporte([FromBody] Reporte nuevoReporte)
         {
             // 1. Validación de Seguridad (Garantía de que no llegue basura)
             if (nuevoReporte == null)
@@ -47,19 +33,20 @@ namespace Via360.API.Controllers
                 return BadRequest("El reporte debe incluir coordenadas de GPS válidas.");
             }
 
-            // 3. Simulación de Proceso (Log en consola)
             // Esto confirma que el objeto llegó y se deserializó correctamente
             Console.WriteLine($"[NUEVO REPORTE] Tipo: {nuevoReporte.Tipo}");
             Console.WriteLine($"[UBICACIÓN] Lat: {nuevoReporte.Ubicacion.Latitud}, Lon: {nuevoReporte.Ubicacion.Longitud}");
             Console.WriteLine($"[USUARIO] ID: {nuevoReporte.IdUsuario}");
 
-            // 4. Respuesta de éxito
-            return Ok(new
+            try
             {
-                Mensaje = "Reporte validado y recibido por el Backend",
-                IdGenerado = nuevoReporte.IdReporte,
-                FechaRecibido = DateTime.Now
-            });
+                await _firestoreService.GuardarReporte(nuevoReporte);
+                return Ok(new { mensaje = "Reporte vial creado exitosamente" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al crear el reporte: {ex.Message}");
+            }
         }
     }
 }
