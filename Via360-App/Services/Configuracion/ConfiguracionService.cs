@@ -7,6 +7,7 @@ namespace Via360.App.Services
     {
         public string CloudName { get; private set; }
         public string UploadPreset { get; private set; }
+        public string FirebaseApiKey { get; private set; }
 
         public ConfiguracionService()
         {
@@ -25,11 +26,16 @@ namespace Via360.App.Services
                 }
 
                 using var reader = new StreamReader(stream);
+
                 var json = reader.ReadToEnd();
                 var config = JsonDocument.Parse(json);
 
+                //lectura de cloudinary
                 CloudName = config.RootElement.GetProperty("Cloudinary").GetProperty("CloudName").GetString();
                 UploadPreset = config.RootElement.GetProperty("Cloudinary").GetProperty("UploadPreset").GetString();
+
+                //lectura de Firebase
+                FirebaseApiKey = config.RootElement.GetProperty("Firebase").GetProperty("ApiKey").GetString();
             }
             catch (Exception ex)
             {

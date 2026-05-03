@@ -9,6 +9,6 @@ namespace Via360.App.Services
         Task<string> RegistroAsync(string email, string password);
         Task<string> LoginAsync(string email, string password);
         void Logout();
-        bool IsLoggedIn();
+        bool IsLoggedIn();  
     }
 }
