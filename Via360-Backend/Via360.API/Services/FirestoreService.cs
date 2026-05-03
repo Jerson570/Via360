@@ -45,5 +45,29 @@ namespace Via360.Api.Services
                 entidad = usuario.Entidad // Será null si es ciudadano
             });
         }
+        public async Task GuardarReporte(Reporte reporte)
+        {
+            // se genera aquí si viene vacío para asegurar unicidad
+            var idDocumento = string.IsNullOrEmpty(reporte.IdReporte) 
+                            ? Guid.NewGuid().ToString() 
+                            : reporte.IdReporte;
+            DocumentReference docRef = _db.Collection("reportes").Document(idDocumento);
+
+            await docRef.SetAsync(new
+            {
+                idReporte = idDocumento,
+                idUsuario = reporte.IdUsuario,
+                fecha = Timestamp.FromDateTime(reporte.Fecha.ToUniversalTime()),
+                tipo = reporte.Tipo.ToString(), //guardado como string para que sea legible
+                descripcion = reporte.Descripcion,
+                estado = reporte.Estado.ToString(),
+                ubicacion = new
+                {
+                    latitud = reporte.Ubicacion.Latitud,
+                    longitud = reporte.Ubicacion.Longitud,
+                    direccionTexto = reporte.Ubicacion.DireccionTexto
+                }
+            });
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Via360.Api.Services;
 using Via360.Shared.Models;
 
 namespace Via360.API.Controllers
@@ -7,6 +8,24 @@ namespace Via360.API.Controllers
     [Route("api/[controller]")]
     public class ReportesController : ControllerBase
     {
+        private readonly FirestoreService _firestoreService;
+        public ReportesController(FirestoreService firestoreService)
+        {
+            _firestoreService = firestoreService;
+        }
+        [HttpPost("crear")]
+        public async Task<IActionResult> CrearReporte([FromBody] Reporte reporte)
+        {
+            try
+            {
+                await _firestoreService.GuardarReporte(reporte);
+                return Ok(new { mensaje = "Reporte vial creado exitosamente" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al crear el reporte: {ex.Message}");
+            }
+        }
         // endpoint de Swagger: POST /api/reportes
         [HttpPost]
         public IActionResult RecibirReporte([FromBody] Reporte nuevoReporte)
