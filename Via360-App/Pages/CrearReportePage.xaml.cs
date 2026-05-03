@@ -44,6 +44,32 @@ public partial class CrearReportePage : ContentPage
     {
         await Navigation.PopModalAsync();
     }
+    private string _urlImagenFirebase = "";
+    private async void OnTomarFotoClicked(object sender, EventArgs e)
+    {
+        try
+        {
+            var foto = await MediaPicker.Default.CapturePhotoAsync();
+
+            if (foto != null)
+            {
+                // visualizacion de foto
+                var rutaLocal = foto.FullPath;
+                FotoEvidencia.Source = ImageSource.FromFile(rutaLocal);
+                FotoEvidencia.IsVisible = true;
+
+                // subir a firebase
+
+                // simulacion de link
+                _urlImagenFirebase = "https://firebasestorage.googleapis.com/.../foto.jpg";
+            }
+        }
+        catch (Exception ex)
+        {
+            await this.DisplayAlertAsync("Error", "No se pudo capturar la foto: " + ex.Message, "OK");
+        }
+    }
+
     private void CargarCategorias()
     {
 

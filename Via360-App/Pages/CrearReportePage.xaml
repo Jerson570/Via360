@@ -12,19 +12,36 @@
 
             <VerticalStackLayout Spacing="5">
                 <Label Text="¿Qué tipo de problema es?" FontAttributes="Bold"/>
-                <Border StrokeShape="RoundRectangle 10" BackgroundColor="#F5F5F5" Padding="5">
+                <Border StrokeShape="RoundRectangle 10" BackgroundColor="White" Padding="5">
                     <Picker x:Name="PickerTipo" Title="Selecciona el incidente"/>
                 </Border>
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="5">
-                <Label Text="Cuéntanos más detalles" FontAttributes="Bold"/>
-                <Border StrokeShape="RoundRectangle 10" BackgroundColor="#F5F5F5" Padding="10">
+                <Label Text="Cuéntanos más detalles" FontAttributes="Bold" />
+                <Border StrokeShape="RoundRectangle 10" BackgroundColor="White" Padding="10">
                     <Editor x:Name="EditorDescripcion" 
                             Placeholder="Ej: El bache es muy profundo y está después de la curva..." 
                             HeightRequest="120"/>
                 </Border>
             </VerticalStackLayout>
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Evidencia Fotográfica" FontAttributes="Bold"/>
+
+                <Image x:Name="FotoEvidencia" 
+                       HeightRequest="200" 
+                       Aspect="AspectFill" 
+                       IsVisible="False" />
+
+                <Button Text="📷 Tomar o subir foto"
+                        Clicked="OnTomarFotoClicked"
+                        BackgroundColor="#A4B0BE"
+                        TextColor="White"
+                        CornerRadius="10"/>
+            </VerticalStackLayout>
+
+            <Line HorizontalOptions="Fill" Stroke="LightGray" StrokeThickness="1" />
+
 
             <Button Text="Publicar Reporte" 
                     Clicked="OnPublicarClicked" 
