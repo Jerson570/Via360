@@ -18,7 +18,7 @@ namespace Via360.Shared.Models
         {
 
         }
-        public Reporte(string IdUsuario, TipoIncidente tipoInicial, string descripcion, Ubicacion ubicacion, EstadoReporte estadoInicial)
+        public Reporte(string IdUsuario, TipoIncidente tipoInicial, string descripcion, Ubicacion ubicacion, EstadoReporte estadoInicial, string UrlImagen)
         {
             this.IdReporte = Guid.NewGuid().ToString();
             this.IdUsuario = IdUsuario;
@@ -27,6 +27,7 @@ namespace Via360.Shared.Models
             this.Descripcion = descripcion;
             this.Ubicacion = ubicacion;
             this.Estado = EstadoReporte.Pendiente;
+            this.UrlImagen = UrlImagen;
         }
     }
 }
