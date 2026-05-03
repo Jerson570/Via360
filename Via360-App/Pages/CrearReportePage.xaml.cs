@@ -30,7 +30,8 @@ public partial class CrearReportePage : ContentPage
             tipoInicial: (TipoIncidente)PickerTipo.SelectedIndex,
             descripcion: EditorDescripcion.Text,
             ubicacion: ubicacionReporte,
-            estadoInicial: EstadoReporte.Pendiente
+            estadoInicial: EstadoReporte.Pendiente,
+            UrlImagen: _urlImagenFirebase
         );
 
         //  Mostrar confirmación
