@@ -84,5 +84,12 @@ namespace Via360.Api.Services
                 }
             });
         }
+        public async Task<List<Reporte>> ObtenerReportesPorUsuario(string uid)
+        {
+            CollectionReference reportesRef = _db.Collection("reportes");
+            Query consulta = reportesRef.WhereEqualTo("idUsuario", uid);
+            QuerySnapshot snapshot = await consulta.GetSnapshotAsync();
+            return snapshot.Documents.Select(d => d.ConvertTo<Reporte>()).ToList();
+        }
     }
 }
