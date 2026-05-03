@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Via360.App.Services;
 
 namespace Via360.App
 {
@@ -18,7 +19,10 @@ namespace Via360.App
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-
+            //lee el json
+            builder.Services.AddSingleton<ConfiguracionService>();
+            //sube las fotos (interfaz+implementacion)
+            builder.Services.AddSingleton<IImagenService, CloudinaryService>();
             return builder.Build();
         }
     }

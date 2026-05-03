@@ -118,4 +118,9 @@
 	  <GoogleServicesJson Include="Platforms\Android\google-services.json" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<!-- Esto limpia cualquier basura previa y fuerza el recurso incrustado -->
+		<EmbeddedResource Include="Resources\Raw\appsettings.json" />
+	</ItemGroup>
+
 </Project>
