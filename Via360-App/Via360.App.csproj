@@ -109,10 +109,10 @@
 	  <MauiXaml Update="Pages\PerfilPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="RecuperarPage.xaml">
+	  <MauiXaml Update="Pages\RecuperarPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="RegistroPage.xaml">
+	  <MauiXaml Update="Pages\RegistroPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
