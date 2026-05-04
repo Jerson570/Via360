@@ -23,6 +23,8 @@ namespace Via360.App
             builder.Services.AddSingleton<ConfiguracionService>();
             //sube las fotos (interfaz+implementacion)
             builder.Services.AddSingleton<IImagenService, CloudinaryService>();
+            //autenticación
+            builder.Services.AddSingleton<IAuthService, FirebaseAuthService>();
             return builder.Build();
         }
     }
