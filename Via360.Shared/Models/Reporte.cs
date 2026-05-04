@@ -14,6 +14,8 @@ namespace Via360.Shared.Models
         public string Descripcion { get; set; }
         public EstadoReporte Estado {  get; set; }
         public string UrlImagen { get; set; }
+
+        public Ubicacion Posicion { get; set; } =new Ubicacion();
         public Reporte()
         {
 
