@@ -8,6 +8,7 @@ namespace Via360.App
         {
             InitializeComponent();
 
+            Routing.RegisterRoute(nameof(PantallaPrincipal), typeof(PantallaPrincipal));
             Routing.RegisterRoute(nameof(RegistroPage), typeof(RegistroPage));
             Routing.RegisterRoute(nameof(RecuperarPage), typeof(RecuperarPage));
             Routing.RegisterRoute(nameof(PerfilPage), typeof(PerfilPage));
