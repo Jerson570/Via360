@@ -27,6 +27,7 @@ namespace Via360.App
             builder.Services.AddSingleton<IImagenService, CloudinaryService>();
             //autenticación
             builder.Services.AddSingleton<IAuthService, FirebaseAuthService>();
+            builder.Services.AddSingleton<ApiService>();
 
             // registro de ViewModels
             builder.Services.AddTransient<LoginViewModel>();
