@@ -6,8 +6,8 @@ namespace Via360.App.Services
 {
     public interface IAuthService
     {
-        Task<string> RegistroAsync(string email, string password, string nombre);
         Task<string> LoginAsync(string email, string password);
+        Task<string> RegistroAsync(string email, string password, string nombreCompleto);
         void Logout();
         bool IsLoggedIn();  
     }
