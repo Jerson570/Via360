@@ -28,10 +28,10 @@
 		<MauiXamlInflator>SourceGen</MauiXamlInflator>
 
 		<!-- Display name -->
-		<ApplicationTitle>Via360.App</ApplicationTitle>
+		<ApplicationTitle>Via360</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.Via360.App</ApplicationId>
+		<ApplicationId>com.via360.app</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -49,6 +49,43 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|AnyCPU'">
 	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+	  <ApplicationId>com.via360.app</ApplicationId>
+	  <ApplicationTitle>Via360</ApplicationTitle>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-ios|AnyCPU'">
+	  <ApplicationId>com.via360.app</ApplicationId>
+	  <ApplicationTitle>Via360</ApplicationTitle>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-maccatalyst|AnyCPU'">
+	  <ApplicationId>com.via360.app</ApplicationId>
+	  <ApplicationTitle>Via360</ApplicationTitle>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-windows10.0.19041.0|AnyCPU'">
+	  <ApplicationId>com.via360.app</ApplicationId>
+	  <ApplicationTitle>Via360</ApplicationTitle>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-android|AnyCPU'">
+	  <ApplicationId>com.via360.app</ApplicationId>
+	  <ApplicationTitle>Via360</ApplicationTitle>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-ios|AnyCPU'">
+	  <ApplicationId>com.via360.app</ApplicationId>
+	  <ApplicationTitle>Via360</ApplicationTitle>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-maccatalyst|AnyCPU'">
+	  <ApplicationId>com.via360.app</ApplicationId>
+	  <ApplicationTitle>Via360</ApplicationTitle>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-windows10.0.19041.0|AnyCPU'">
+	  <ApplicationId>com.via360.app</ApplicationId>
+	  <ApplicationTitle>Via360</ApplicationTitle>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -128,12 +165,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <GoogleServicesJson Include="Platforms\Android\google-services.json" />
+		<!-- Esto limpia cualquier basura previa y fuerza el recurso incrustado -->
+		<EmbeddedResource Include="Resources\Raw\appsettings.json" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<!-- Esto limpia cualquier basura previa y fuerza el recurso incrustado -->
-		<EmbeddedResource Include="Resources\Raw\appsettings.json" />
+	  <GoogleServicesJson Include="Platforms\Android\google-services.json" />
 	</ItemGroup>
 
 </Project>

@@ -43,7 +43,8 @@ namespace Via360.App.Services
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error cargando configuración: {ex.Message}");
+                 
+                throw new Exception($"ERROR CRÍTICO EN CONFIGURACIÓN: {ex.Message}", ex);
             }
         }
     }
