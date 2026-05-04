@@ -8,7 +8,9 @@
              BackgroundColor="White">
 
     <ScrollView>
-        <VerticalStackLayout Padding="30" Spacing="15" VerticalOptions="Center">
+        <VerticalStackLayout Padding="30" 
+                             Spacing="15" 
+                             VerticalOptions="Center">
 
             <Image Source="via360.jpeg" 
                    HeightRequest="80" 
