@@ -8,7 +8,7 @@ namespace Via360.Shared.Models
         public string IdUsuario { get; set; } // UID de firebase
         public string Nombre { get; set; }
         public string Email { get; set; }
-        public string Rol { get; set; } // "Ciudadano" o "Autoridad"
+        public string? Rol { get; set; } // "Ciudadano" o "Autoridad"
         public DateTime FechaRegistro {  get; set; }
 
         // campos exclusivos de autoridades (NULL para ciudadanos)
