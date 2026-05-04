@@ -46,5 +46,18 @@ namespace Via360.App.ViewModels
                 await Shell.Current.DisplayAlert("Error", "Credenciales incorrectas o problema de conexión.", "OK");
             }
         }
+
+        [RelayCommand]
+        public async Task NavegarRegistro()
+        {
+            // se usa nameof para evitar errores de escritura
+            await Shell.Current.GoToAsync("RegistroPage");
+        }
+
+        [RelayCommand]
+        public async Task NavegarRecuperar()
+        {
+            await Shell.Current.GoToAsync("RecuperarPage");
+        }
     }
 }
