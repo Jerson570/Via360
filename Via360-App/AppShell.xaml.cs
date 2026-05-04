@@ -1,4 +1,6 @@
-﻿namespace Via360.App
+﻿using Via360.App.Pages;
+
+namespace Via360.App
 {
     public partial class AppShell : Shell
     {
@@ -8,6 +10,7 @@
 
             Routing.RegisterRoute(nameof(RegistroPage), typeof(RegistroPage));
             Routing.RegisterRoute(nameof(RecuperarPage), typeof(RecuperarPage));
+            Routing.RegisterRoute(nameof(PerfilPage), typeof(PerfilPage));
         }
     }
 }
