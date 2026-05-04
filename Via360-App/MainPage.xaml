@@ -1,37 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Via360.App.ViewModels"
              x:Class="Via360.App.MainPage"
+             x:DataType="viewmodels:LoginViewModel"
              Shell.NavBarIsVisible="False"
              BackgroundColor="White">
 
-
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="15" VerticalOptions="Center">
-            
+
             <Image Source="via360.jpeg" HeightRequest="80" HorizontalOptions="Center" Margin="0,10"/>
 
             <Label Text="Vía360" FontSize="32" FontAttributes="Bold" TextColor="#512BD4" HorizontalOptions="Center"/>
-            
+
+            <!-- Selector de Rol -->
             <Border Stroke="#512BD4" StrokeThickness="1" Margin="0,10">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="25"/>
                 </Border.StrokeShape>
                 <Grid ColumnDefinitions="*,*">
-                    <Button x:Name="BtnRoleCiudadano" Text="Ciudadano" Grid.Column="0" 
-                            BackgroundColor="#512BD4" TextColor="White" CornerRadius="25"
-                            Clicked="OnRoleChanged"/>
-                    <Button x:Name="BtnRoleAutoridad" Text="Autoridad" Grid.Column="1" 
-                            BackgroundColor="Transparent" TextColor="#512BD4" CornerRadius="25"
-                            Clicked="OnRoleChanged"/>
+                    <Button Text="Ciudadano" Grid.Column="0" 
+                            BackgroundColor="#512BD4" TextColor="White" CornerRadius="25"/>
+                    <Button Text="Autoridad" Grid.Column="1" 
+                            BackgroundColor="Transparent" TextColor="#512BD4" CornerRadius="25"/>
                 </Grid>
             </Border>
-            
+
             <Border Stroke="#E0E0E0" Padding="10,2">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="15"/>
                 </Border.StrokeShape>
-                <Entry x:Name="TxtEmail" Placeholder="Correo electrónico" Keyboard="Email"
+                <!-- Binding al Email del ViewModel -->
+                <Entry Text="{Binding Email}" Placeholder="Correo electrónico" Keyboard="Email"
                        PlaceholderColor="Gray" TextColor="Black" HeightRequest="45"/>
             </Border>
 
@@ -39,24 +40,30 @@
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="15"/>
                 </Border.StrokeShape>
-                <Entry x:Name="TxtPassword" Placeholder="Contraseña" IsPassword="True"
+                <!-- Binding al Password del ViewModel -->
+                <Entry Text="{Binding Password}" Placeholder="Contraseña" IsPassword="True"
                        PlaceholderColor="Gray" TextColor="Black" HeightRequest="45"/>
             </Border>
 
             <Button Text="¿Olvidaste tu contraseña?" 
                     BackgroundColor="Transparent" TextColor="#512BD4" FontSize="12"
-                    HorizontalOptions="Start" Clicked="OnForgotPasswordClicked"/>
+                    HorizontalOptions="Start"/>
 
-            <Button x:Name="BtnLogin" Text="INICIAR SESIÓN" 
+            <!-- Botón conectado al RelayCommand del ViewModel -->
+            <Button Text="INICIAR SESIÓN" 
+                    Command="{Binding LoginCommand}"
                     BackgroundColor="#512BD4" TextColor="White" 
-                    HeightRequest="55" CornerRadius="25" Margin="0,10"
-                    Clicked="OnLoginClicked"/>
+                    HeightRequest="55" CornerRadius="25" Margin="0,10"/>
+
+            <!-- Indicador de carga -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#512BD4" />
+
             <Grid>
-            <HorizontalStackLayout x:Name="StackRegistro" HorizontalOptions="Center" Spacing="5">
-                <Button Text="Regístrate aquí" BackgroundColor="Transparent" 
-                        TextColor="#512BD4" FontAttributes="Bold"
-                        Clicked="OnRegisterClicked" HorizontalOptions="Center"/>
-            </HorizontalStackLayout>
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                    <Button Text="Regístrate aquí" BackgroundColor="Transparent" 
+                            TextColor="#512BD4" FontAttributes="Bold"
+                            HorizontalOptions="Center"/>
+                </HorizontalStackLayout>
             </Grid>
         </VerticalStackLayout>
     </ScrollView>
