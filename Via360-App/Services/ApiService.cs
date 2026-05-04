@@ -1,5 +1,6 @@
 ﻿using System.Buffers.Text;
 using System.Net.Http.Json;
+using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 
@@ -31,12 +32,25 @@ namespace Via360.App.Services
             try
             {
                 //endpoint concatenado automáticamente a la BaseAddress
-                var response = await _httpClient.PostAsJsonAsync("api/Usuarios/registrar", usuarioData);
-                return response.IsSuccessStatusCode;
+                string endpoint = "api/Usuarios/registrar";
+                System.Diagnostics.Debug.WriteLine($">>>>>>>> LLAMANDO A: {_httpClient.BaseAddress}{endpoint}");
+                var response = await _httpClient.PostAsJsonAsync(endpoint, usuarioData);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var contenidoError = await response.Content.ReadAsStringAsync();
+                    System.Diagnostics.Debug.WriteLine($" >>>>>>>>> AZURE RESPONDIÓ: ({response.StatusCode}): {contenidoError}");
+                    return false;
+                }
+                return true;
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error de conexión con Azure: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($">>>>> ERROR CRÍTICO DE RED: {ex.Message}");
+                if (ex.InnerException != null)
+                {
+                    System.Diagnostics.Debug.WriteLine($">>>>> DETALLE: {ex.InnerException.Message}");
+                }
                 return false;
             }
         }
