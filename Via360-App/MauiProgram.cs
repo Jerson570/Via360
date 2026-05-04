@@ -30,6 +30,7 @@ namespace Via360.App
 
             // registro de ViewModels
             builder.Services.AddTransient<LoginViewModel>();
+            builder.Services.AddTransient<RegistroViewModel>();
 
             // registro de Páginas
             builder.Services.AddTransient<PantallaPrincipal>();
