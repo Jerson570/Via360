@@ -3,29 +3,54 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Via360.App.Services;
 
 namespace Via360.App.ViewModels
 {
     public partial class RegistroViewModel : ObservableObject
     {
+        private readonly IAuthService _authService;
+        private readonly ApiService _apiService;
+
         // nombre segmentado
-        [ObservableProperty] string primerNombre;
-        [ObservableProperty] string segundoNombre;
-        [ObservableProperty] string primerApellido;
-        [ObservableProperty] string segundoApellido;
 
-        [ObservableProperty] string email;
-        [ObservableProperty] string password;
+        [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(RegistrarCommand))]
+        private string primerNombre;
 
-        // Propiedad para la confirmación
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(RegistrarCommand))]
-        string confirmarPassword;
+        [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(RegistrarCommand))]
+        private string segundoNombre;
 
+        [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(RegistrarCommand))]
+        private string primerApellido;
+
+        [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(RegistrarCommand))]
+        private string segundoApellido;
+
+        //credenciales
+
+        [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(RegistrarCommand))]
+        private string email;
+
+        [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(RegistrarCommand))]
+        private string password;
+
+        // propiedad para la confirmación
+        [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(RegistrarCommand))]
+        private string confirmarPassword;
+
+
+        //CONSTRUCTOR
+
+        public RegistroViewModel(IAuthService authService, ApiService apiService)
+        {
+            _authService = authService;
+            _apiService = apiService;
+
+        }
         [RelayCommand(CanExecute = nameof(CanRegister))]
         private async Task Registrar()
         {
-            // 1. Validar el Segundo Apellido (Tu requerimiento)
+            // Validar el Segundo Apellido
             if (string.IsNullOrWhiteSpace(segundoApellido))
             {
                 bool continuar = await Shell.Current.DisplayAlert("Atención",
@@ -33,21 +58,56 @@ namespace Via360.App.ViewModels
                 if (!continuar) return;
             }
 
-            // 2. Combinar el nombre completo (Tu requerimiento)
-            string nombreCompleto = $"{primerNombre} {segundoNombre} {primerApellido} {segundoApellido}".Replace("  ", " ").Trim();
+            // Unificación de nombre
+            var nombres = new[] { PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido };
+            string nombreCompleto = string.Join(" ", nombres.Where(n => !string.IsNullOrWhiteSpace(n))).Trim();
+            try
+            {
+                // Firebase Auth
+                var uid = await _authService.RegistroAsync(Email, Password, nombreCompleto);
+                if (string.IsNullOrEmpty(uid))
+                {
+                    await Shell.Current.DisplayAlert("Error", "No se pudo registrar el usuario. Intenta nuevamente.", "OK");
+                    return;
+                }
+                // Backend Azure (Ajustado al contrato real de la API)
+                var usuarioParaBackend = new
+                {
+                    IdUsuario = uid,
+                    Nombre = nombreCompleto,
+                    Email, 
+                    FechaRegistro = DateTime.UtcNow,
+                    Cargo = (string)null,
+                    Entidad = (string)null
+                };
 
-            // 3. Llamar al servicio (Esto lo haremos luego)
-            // var exito = await _authService.RegisterAsync(Email, Password, nombreCompleto);
+
+                bool exitoBackend = await _apiService.RegistrarCiudadanoEnBackend(usuarioParaBackend);
+                if (exitoBackend)
+                {
+                    await Shell.Current.DisplayAlert("Éxito", "Usuario creado y guardado.", "Aceptar");
+                    await Shell.Current.GoToAsync(".."); // Regresa a la pantalla anterior
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Error de Perfil", "Cuenta creada pero falló el registro en el servidor.", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error Crítico", $"Fallo en la operación: {ex.Message}", "OK");
+            }
         }
 
         // Lógica que habilita/deshabilita el botón automáticamente
         private bool CanRegister()
         {
-            return !string.IsNullOrWhiteSpace(primerNombre) &&
-                   !string.IsNullOrWhiteSpace(primerApellido) &&
-                   !string.IsNullOrWhiteSpace(email) &&
-                   !string.IsNullOrWhiteSpace(password) &&
-                   password == confirmarPassword; // Aquí ocurre la magia en tiempo real
+            // El Toolkit genera automáticamente "PrimerNombre" a partir de "primerNombre"
+            return !string.IsNullOrWhiteSpace(PrimerNombre) &&
+                   !string.IsNullOrWhiteSpace(PrimerApellido) &&
+                   !string.IsNullOrWhiteSpace(Email) &&
+                   !string.IsNullOrWhiteSpace(Password) &&
+                   Password == ConfirmarPassword;
         }
     }
 }
