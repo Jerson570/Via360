@@ -31,7 +31,7 @@ namespace Via360.App.Services
             try
             {
                 //endpoint concatenado automáticamente a la BaseAddress
-                var response = await _httpClient.PostAsJsonAsync("/api/Usuarios/registrar", usuarioData);
+                var response = await _httpClient.PostAsJsonAsync("api/Usuarios/registrar", usuarioData);
                 return response.IsSuccessStatusCode;
             }
             catch (Exception ex)

@@ -12,7 +12,7 @@ public class UsuariosController : ControllerBase
         _firestoreService = firestoreService;
     }
 
-    // POST: /api/Usuarios/registrar
+    // POST: api/Usuarios/registrar
     [HttpPost("registrar")]
     public async Task<IActionResult> RegistrarUsuario([FromBody] Usuario usuario)
     {
