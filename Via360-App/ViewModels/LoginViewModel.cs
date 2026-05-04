@@ -38,8 +38,8 @@ namespace Via360.App.ViewModels
 
             if (uid != null)
             {
-                // Navegación a la página que acabas de crear/registrar
-                await Shell.Current.GoToAsync($"//{nameof(PerfilPage)}");
+                // Navegación a la página principal
+                await Shell.Current.GoToAsync(nameof(PantallaPrincipal));
             }
             else
             {
