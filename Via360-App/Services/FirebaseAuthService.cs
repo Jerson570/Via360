@@ -24,11 +24,11 @@ namespace Via360.App.Services
             };
             _authClient=new FirebaseAuthClient(firebaseConfig);
         }
-        public async Task<string> RegistroAsync(string email, string password)
+        public async Task<string> RegistroAsync(string email, string password, string nombre)
         {
             try
             {
-                var userCredential = await _authClient.CreateUserWithEmailAndPasswordAsync(email, password);
+                var userCredential = await _authClient.CreateUserWithEmailAndPasswordAsync(email, password, nombre);
                 return userCredential.User.Uid;
             }
             catch (Exception ex)

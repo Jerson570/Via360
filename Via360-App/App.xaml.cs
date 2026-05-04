@@ -19,7 +19,7 @@ namespace Via360.App
             // PRUEBA RÁPIDA: No borrar esto hasta que funcione
             Task.Run(async () => 
             {
-                var resultado = await authService.RegistroAsync("test_via360@pascualbravo.edu.co", "Ingenieria123!");
+                var resultado = await authService.RegistroAsync("test_via360@pascualbravo.edu.co", "Ingenieria123!", "PruebaNombre");
                 if (resultado != null)
                     System.Diagnostics.Debug.WriteLine($">>>>> ÉXITO: Usuario creado con UID: {resultado}");
                 else
