@@ -8,6 +8,7 @@ namespace Via360.App.Services
         public string CloudName { get; private set; }
         public string UploadPreset { get; private set; }
         public string FirebaseApiKey { get; private set; }
+        public string UrlBackend { get; private set; }
 
         public ConfiguracionService()
         {
@@ -36,6 +37,9 @@ namespace Via360.App.Services
 
                 //lectura de Firebase
                 FirebaseApiKey = config.RootElement.GetProperty("Firebase").GetProperty("ApiKey").GetString();
+
+                // lectura de backend Azure
+                UrlBackend = config.RootElement.GetProperty("Azure").GetProperty("UrlBackend").GetString();
             }
             catch (Exception ex)
             {
