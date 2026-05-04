@@ -21,7 +21,6 @@ namespace Via360.Shared.Models
             this.IdUsuario = id;
             this.Nombre = nombre;
             this.Email = email;
-            this.FechaRegistro = DateTime.UtcNow;
             this.Rol = rol;
         }
     }

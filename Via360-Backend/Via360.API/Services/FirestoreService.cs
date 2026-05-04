@@ -54,7 +54,7 @@ namespace Via360.Api.Services
             {
                 nombre = usuario.Nombre,
                 email = usuario.Email,
-                rol = usuario.Rol,
+                rol = "Ciudadano", //Hardcodeado por seguridad
                 fechaRegistro = Timestamp.FromDateTime(usuario.FechaRegistro.ToUniversalTime()),
                 cargo = usuario.Cargo, // Será null si es ciudadano
                 entidad = usuario.Entidad // Será null si es ciudadano
