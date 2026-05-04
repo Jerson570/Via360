@@ -32,6 +32,7 @@ namespace Via360.App
             builder.Services.AddTransient<LoginViewModel>();
 
             // registro de Páginas
+            builder.Services.AddTransient<PantallaPrincipal>();
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<PerfilPage>();
             builder.Services.AddTransient<RegistroPage>();
