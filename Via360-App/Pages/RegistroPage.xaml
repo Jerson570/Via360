@@ -97,6 +97,62 @@
                            PlaceholderColor="Gray" 
                            TextColor="Black"/>
                 </Border>
+                
+                <!--Confirmación de contraseña-->
+                <Label Text="• 8-32 caracteres" FontSize="12" Margin="10,-7">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding TieneLongitudValida}" Value="True">
+                            <Setter Property="TextColor" Value="Green" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding TieneLongitudValida}" Value="False">
+                            <Setter Property="TextColor" Value="Red" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+
+                <Label Text="• Al menos una mayúscula" FontSize="12" Margin="10,-7">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding TieneMayuscula}" Value="True">
+                            <Setter Property="TextColor" Value="Green" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding TieneMayuscula}" Value="False">
+                            <Setter Property="TextColor" Value="Red" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+
+                <Label Text="• Al menos una minúscula" FontSize="12" Margin="10,-7">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding TieneMinuscula}" Value="True">
+                            <Setter Property="TextColor" Value="Green" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding TieneMinuscula}" Value="False">
+                            <Setter Property="TextColor" Value="Red" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+
+                <Label Text="• Al menos un número" FontSize="12" Margin="10,-7">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding TieneNumero}" Value="True">
+                            <Setter Property="TextColor" Value="Green" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding TieneNumero}" Value="False">
+                            <Setter Property="TextColor" Value="Red" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+
+                <Label Text="• Al menos un carácter especial" FontSize="12" Margin="10,-7">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding TieneEspecial}" Value="True">
+                            <Setter Property="TextColor" Value="Green" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Label" Binding="{Binding TieneEspecial}" Value="False">
+                            <Setter Property="TextColor" Value="Red" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
 
                 <Border Stroke="#E0E0E0" 
                         Padding="10,2">
@@ -108,6 +164,14 @@
                            IsPassword="True" PlaceholderColor="Gray" 
                            TextColor="Black"/>
                 </Border>
+                
+                <!-- Coincidencia de la contraseña-->
+                <Label Text="Las contraseñas no coinciden"
+                       TextColor="Red"
+                       FontSize="12"
+                       Margin="10,0"
+                       HorizontalOptions="Start"
+                       IsVisible="{Binding ContrasenasDiferentes}" />
 
                 <Button Text="REGISTRARSE"
                         Command="{Binding RegistrarCommand}"
@@ -115,12 +179,30 @@
                         TextColor="White"
                         HeightRequest="55"
                         CornerRadius="25"
-                        Margin="0,15"/>
+                        Margin="0,15">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="Opacity" Value="1.0" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <VisualState.Setters>
+                                        <Setter Property="Opacity" Value="0.5" />
+                                        <Setter Property="BackgroundColor" Value="Gray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                </Button>
 
                 <ActivityIndicator IsRunning="{Binding IsBusy}" 
                                    IsVisible="{Binding IsBusy}" 
                                    Color="#512BD4" />
-
+                
             </VerticalStackLayout>
         </ScrollView>
     </Grid>

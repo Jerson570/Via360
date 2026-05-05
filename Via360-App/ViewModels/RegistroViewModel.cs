@@ -31,14 +31,41 @@ namespace Via360.App.ViewModels
         [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(RegistrarCommand))]
         private string email;
 
-        [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(RegistrarCommand))]
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(RegistrarCommand))]
+        [NotifyPropertyChangedFor(nameof(TieneLongitudValida))]
+        [NotifyPropertyChangedFor(nameof(TieneMayuscula))]
+        [NotifyPropertyChangedFor(nameof(TieneMinuscula))]
+        [NotifyPropertyChangedFor(nameof(TieneNumero))]
+        [NotifyPropertyChangedFor(nameof(TieneEspecial))]
+        [NotifyPropertyChangedFor(nameof(ContrasenasCoinciden))]
+        [NotifyPropertyChangedFor(nameof(ContrasenasDiferentes))]
         private string password;
 
         // propiedad para la confirmación
         [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(RegistrarCommand))]
+        [NotifyPropertyChangedFor(nameof(ContrasenasCoinciden))] // <-- Notifica el cambio
+        [NotifyPropertyChangedFor(nameof(ContrasenasDiferentes))]
         private string confirmarPassword;
 
+        // propiedades de validación de contraseña para la UI (solo lectura)
 
+        
+        public bool TieneLongitudValida => !string.IsNullOrEmpty(Password) && Password.Length >= 8 && Password.Length <= 32;
+        public bool TieneMayuscula => !string.IsNullOrEmpty(Password) && Password.Any(char.IsUpper);
+        public bool TieneMinuscula => !string.IsNullOrEmpty(Password) && Password.Any(char.IsLower);
+        public bool TieneNumero => !string.IsNullOrEmpty(Password) && Password.Any(char.IsDigit);
+        public bool TieneEspecial => !string.IsNullOrEmpty(Password) && Password.Any(ch => !char.IsLetterOrDigit(ch));
+
+        // Propiedad para saber si coinciden (usada por botón CanRegister)
+        public bool ContrasenasCoinciden => !string.IsNullOrEmpty(Password) &&
+                                            !string.IsNullOrEmpty(ConfirmarPassword) &&
+                                            Password == ConfirmarPassword;
+
+        //solo verdadera si usuario escribe en ambos Y NO son iguales
+        public bool ContrasenasDiferentes => !string.IsNullOrEmpty(Password) &&
+                                     !string.IsNullOrEmpty(ConfirmarPassword) &&
+                                     Password != ConfirmarPassword;
         //CONSTRUCTOR
 
         public RegistroViewModel(IAuthService authService, ApiService apiService)
@@ -82,6 +109,7 @@ namespace Via360.App.ViewModels
                 };
 
 
+
                 bool exitoBackend = await _apiService.RegistrarCiudadanoEnBackend(usuarioParaBackend);
                 if (exitoBackend)
                 {
@@ -102,12 +130,15 @@ namespace Via360.App.ViewModels
         // Lógica que habilita/deshabilita el botón automáticamente
         private bool CanRegister()
         {
-            // El Toolkit genera automáticamente "PrimerNombre" a partir de "primerNombre"
             return !string.IsNullOrWhiteSpace(PrimerNombre) &&
                    !string.IsNullOrWhiteSpace(PrimerApellido) &&
                    !string.IsNullOrWhiteSpace(Email) &&
-                   !string.IsNullOrWhiteSpace(Password) &&
-                   Password == ConfirmarPassword;
-        }
+                   TieneLongitudValida &&
+                   TieneMayuscula &&
+                   TieneMinuscula &&
+                   TieneNumero &&
+                   TieneEspecial &&
+                   ContrasenasCoinciden;
+        }    
     }
 }
