@@ -27,9 +27,4 @@
         ContentTemplate="{DataTemplate pages:PantallaPrincipal}"
         Route="PantallaPrincipal"/>
 
-    <!-- Notificaciones -->
-    <ShellContent
-        ContentTemplate="{DataTemplate pages:NotificacionesPage}"
-        Route="NotificacionesPage"/>
-
 </Shell>

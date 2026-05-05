@@ -108,7 +108,5 @@ public partial class PantallaPrincipal : ContentPage
 
     // cambios de barra de menu
     private async void OnExplorarClicked(object sender, EventArgs e) => await Shell.Current.GoToAsync("//PantallaPrincipal");
-    private async void OnNotificacionesClicked(object sender, EventArgs e) => await Shell.Current.GoToAsync("//NotificacionesPage");
-    //private async void OnMisReportesClicked(object sender, EventArgs e) => await Shell.Current.GoToAsync("//MisReportesPage");
     private async void OnPerfilClicked(object sender, EventArgs e) => await this.DisplayAlertAsync("Perfil", "Ajustes de cuenta.", "OK");
 }
