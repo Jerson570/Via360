@@ -99,6 +99,21 @@ public partial class PantallaPrincipal : ContentPage
         }
     }
 
+    private async void OnPerfilClicked(object sender, EventArgs e)
+    {
+        try
+        {
+            // Usamos el nombre que registramos en el AppShell
+            await Shell.Current.GoToAsync("PerfilPage");
+        }
+        catch (Exception ex)
+        {
+            // Esto imprimirá el error real en la consola de Visual Studio
+            System.Diagnostics.Debug.WriteLine($"Fallo en navegación: {ex.Message}");
+            await this.DisplayAlertAsync("Error", "No se pudo abrir el perfil", "OK");
+        }
+    }
+
     private void OnFiltrarTodos(object sender, EventArgs e) => AplicarFiltro(sender, "todos");
     private void OnFiltrarBaches(object sender, EventArgs e) => AplicarFiltro(sender, "bache");
     private void OnFiltrarSemaforos(object sender, EventArgs e) => AplicarFiltro(sender, "semaforo");
@@ -108,5 +123,4 @@ public partial class PantallaPrincipal : ContentPage
 
     // cambios de barra de menu
     private async void OnExplorarClicked(object sender, EventArgs e) => await Shell.Current.GoToAsync("//PantallaPrincipal");
-    private async void OnPerfilClicked(object sender, EventArgs e) => await this.DisplayAlertAsync("Perfil", "Ajustes de cuenta.", "OK");
 }
