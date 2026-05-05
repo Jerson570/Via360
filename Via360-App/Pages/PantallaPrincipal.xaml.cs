@@ -85,6 +85,19 @@ public partial class PantallaPrincipal : ContentPage
         await Navigation.PushModalAsync(new CrearReportePage());
     }
 
+    private async void OnMisReportesClicked(object sender, EventArgs e)
+    {
+        try
+        {
+            // Usamos la ruta directa que registramos en el paso anterior
+            await Shell.Current.GoToAsync("MisReportesPage");
+        }
+        catch (Exception ex)
+        {
+            // Si falla, esto te dirá exactamente por qué en la consola de salida
+            Console.WriteLine($"Error de navegación: {ex.Message}");
+        }
+    }
 
     private void OnFiltrarTodos(object sender, EventArgs e) => AplicarFiltro(sender, "todos");
     private void OnFiltrarBaches(object sender, EventArgs e) => AplicarFiltro(sender, "bache");
@@ -96,6 +109,6 @@ public partial class PantallaPrincipal : ContentPage
     // cambios de barra de menu
     private async void OnExplorarClicked(object sender, EventArgs e) => await Shell.Current.GoToAsync("//PantallaPrincipal");
     private async void OnNotificacionesClicked(object sender, EventArgs e) => await Shell.Current.GoToAsync("//NotificacionesPage");
-    private async void OnMisReportesClicked(object sender, EventArgs e) => await this.DisplayAlertAsync("Mis Vías", "Aún no has reportado nada.", "OK");
+    //private async void OnMisReportesClicked(object sender, EventArgs e) => await Shell.Current.GoToAsync("//MisReportesPage");
     private async void OnPerfilClicked(object sender, EventArgs e) => await this.DisplayAlertAsync("Perfil", "Ajustes de cuenta.", "OK");
 }

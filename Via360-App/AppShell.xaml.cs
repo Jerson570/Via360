@@ -12,6 +12,7 @@ namespace Via360.App
             Routing.RegisterRoute(nameof(RegistroPage), typeof(RegistroPage));
             Routing.RegisterRoute(nameof(RecuperarPage), typeof(RecuperarPage));
             Routing.RegisterRoute(nameof(PerfilPage), typeof(PerfilPage));
+            Routing.RegisterRoute(nameof(Via360.App.Pages.MisReportesPage), typeof(Via360.App.Pages.MisReportesPage));
         }
     }
 }

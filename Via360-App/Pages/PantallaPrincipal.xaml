@@ -85,6 +85,9 @@
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Grid.Column="2" VerticalOptions="Center">
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnMisReportesClicked"/>
+                    </VerticalStackLayout.GestureRecognizers>
                     <Label Text="📄" FontSize="20" HorizontalOptions="Center"/>
                     <Label Text="Mis Reportes" FontSize="10" TextColor="Gray" HorizontalOptions="Center"/>
                 </VerticalStackLayout>

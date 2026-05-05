@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Via360.App.Pages.MisReportesPage"
+             Title="MisReportesPage">
+    
+    
+    <Grid RowDefinitions="Auto,*">
+        <!-- Encabezado con el estilo de la app -->
+        <Label Grid.Row="0" 
+               Text="Historial de Reportes" 
+               FontSize="22" 
+               FontAttributes="Bold" 
+               TextColor="#512BD4" 
+               Margin="20,15,20,5"/>
+
+        <!-- Lista de reportes del usuario -->
+        <CollectionView Grid.Row="1" 
+                        x:Name="ListaReportes" 
+                        Margin="10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Stroke="#E0E0E0" 
+                            StrokeThickness="1" 
+                            Margin="10,5" 
+                            Padding="15">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="15"/>
+                        </Border.StrokeShape>
+
+                        <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="15">
+                            <!-- Icono visual del tipo de incidente -->
+                            <Label Text="{Binding IconoTipo}" 
+                                   FontSize="32" 
+                                   VerticalOptions="Center" 
+                                   Grid.Column="0"/>
+
+                            <!-- Información principal -->
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label Text="{Binding Tipo}" 
+                                       FontAttributes="Bold" 
+                                       TextColor="Black" 
+                                       FontSize="16"/>
+                                <Label Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy}'}" 
+                                       TextColor="Gray" 
+                                       FontSize="12"/>
+                                <Label Text="{Binding Descripcion}" 
+                                       TextColor="#444" 
+                                       MaxLines="1" 
+                                       LineBreakMode="TailTruncation"
+                                       FontSize="14"/>
+                            </VerticalStackLayout>
+
+                            <!-- Indicador de Estado -->
+                            <VerticalStackLayout Grid.Column="2" 
+                                                 VerticalOptions="Center" 
+                                                 HorizontalOptions="End">
+                                <Label Text="{Binding IconoEstado}" 
+                                       HorizontalOptions="Center"
+                                       FontSize="18"/>
+                                <Label Text="{Binding Estado}" 
+                                       FontSize="10" 
+                                       TextColor="#512BD4"
+                                       HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <!-- Vista amigable si no hay datos -->
+            <CollectionView.EmptyView>
+                <VerticalStackLayout HorizontalOptions="Center" 
+                                     VerticalOptions="Center" 
+                                     Spacing="15" 
+                                     Padding="40">
+                    <Label Text="📑" FontSize="60" HorizontalOptions="Center"/>
+                    <Label Text="No tienes reportes registrados aún." 
+                           TextColor="Gray" 
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+        </CollectionView>
+    </Grid>
+</ContentPage>
