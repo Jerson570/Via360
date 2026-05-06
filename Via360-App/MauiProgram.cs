@@ -33,6 +33,7 @@ namespace Via360.App
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<RegistroViewModel>();
             builder.Services.AddTransient<ReporteViewModel>();
+            builder.Services.AddTransient<MisReportesViewModel>();
 
             // registro de Páginas
             builder.Services.AddTransient<PantallaPrincipal>();
@@ -41,6 +42,7 @@ namespace Via360.App
             builder.Services.AddTransient<RegistroPage>();
             builder.Services.AddTransient<RecuperarPage>();
             builder.Services.AddTransient<CrearReportePage>();
+            builder.Services.AddTransient<MisReportesPage>();
             return builder.Build();
         }
     }
