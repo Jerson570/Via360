@@ -123,5 +123,25 @@ namespace Via360.Api.Services
 
             return listaReportes;
         }
+
+        public async Task<string> ObtenerRolUsuarioAsync(string uid)
+        {
+            try
+            {
+                DocumentReference docRef = _db.Collection("usuarios").Document(uid);
+                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+
+                if (snapshot.Exists)
+                {
+                    return snapshot.GetValue<string>("rol");
+                }
+                return "Ciudadano"; // Por seguridad, si no se encuentra el usuario, se asume rol Ciudadano
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"ERROR CRÍTICO EN FIREBASE: {ex.Message}");
+                return "Ciudadano"; // En caso de error, por seguridad, se asume rol Ciudadano
+            }
+        }
     }
 }

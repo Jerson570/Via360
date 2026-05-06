@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Google.Cloud.Firestore;
+using Google.Cloud.Firestore.V1;
+using Microsoft.AspNetCore.Mvc;
 using Via360.Api.Services;
 using Via360.Shared.Models;
 
@@ -29,5 +31,12 @@ public class UsuariosController : ControllerBase
         {
             return StatusCode(500, $"Error interno: {ex.Message}");
         }
+    }
+
+    [HttpGet("rol/{uid}")]
+    public async Task<IActionResult> GetRolUsuario(string uid)
+    {
+        var rol = await _firestoreService.ObtenerRolUsuarioAsync(uid);
+        return Ok(new { rol });
     }
 }
