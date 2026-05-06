@@ -1,9 +1,9 @@
-# Via360 📍
+# Via360 
 **Sistema Inteligente de Gestión Vial y Reporte Ciudadano**
 
 Via360 es una aplicación multiplataforma desarrollada con **.NET MAUI** diseñada para mejorar la infraestructura urbana. Permite a los ciudadanos reportar incidentes viales (baches, semáforos averiados, grietas) en tiempo real, mientras que las autoridades disponen de un panel de control para gestionar y priorizar estas reparaciones.
 
-## 🚀 Características Principales
+##  Características Principales
 
 *   **Mapa Interactivo:** Integración de **OpenStreetMap** mediante **Leaflet.js** para una visualización fluida y sin costos de API.
 *   **Reporte Ciudadano:** Interfaz intuitiva para capturar la ubicación exacta y el tipo de incidente.
@@ -11,7 +11,7 @@ Via360 es una aplicación multiplataforma desarrollada con **.NET MAUI** diseña
 *   **Arquitectura MVVM:** Código limpio y mantenible utilizando el **CommunityToolkit.Mvvm**.
 *   **Diseño Minimalista:** Estética moderna con paletas de colores enfocadas en la legibilidad y la experiencia de usuario.
 
-## 🛠️ Stack Tecnológico
+## Stack Tecnológico
 
 *   **Frontend:** .NET MAUI (C# / XAML)
 *   **Mapas:** Leaflet.js & OpenStreetMap
@@ -29,7 +29,7 @@ Via360/
 └── Via360.Shared/          # Modelos de datos compartidos (Reportes, Enums)
 
 
----
+
 
 ## 📑 Índice
 * [Arquitectura del Sistema](#-arquitectura-del-sistema)
@@ -68,4 +68,4 @@ Para el desarrollo de **Via360** se tomaron decisiones estratégicas priorizando
 *   **Inyección de Contenido:** El mapa se renderiza mediante un `WebView` alimentado dinámicamente desde C#, permitiendo una integración fluida entre la lógica de .NET y las capacidades de visualización web de Leaflet.
 *   **UI/UX:** Diseño basado en principios minimalistas, utilizando una paleta de colores coherente (`#512BD4`) y componentes visuales con bordes redondeados para una estética moderna.
 
----
+
