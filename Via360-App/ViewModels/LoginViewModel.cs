@@ -48,7 +48,9 @@ namespace Via360.App.ViewModels
 
                 if (rol == "Autoridad")
                 {
-                    await Shell.Current.GoToAsync($"//{nameof(PantallaPrincipalAutoridad)}");
+                    //await Shell.Current.GoToAsync($"//{nameof(PantallaPrincipalAutoridad)}");
+                    await Shell.Current.DisplayAlert("Error", "Aún no se implementa el panel de autoridad", "OK");
+                    await Shell.Current.GoToAsync($"//{nameof(PantallaPrincipal)}");
                 }
                 else
                 {
