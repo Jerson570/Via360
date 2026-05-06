@@ -14,7 +14,7 @@ namespace Via360.App.ViewModels
         private CancellationTokenSource _cts;
 
         // Lista maestra (lo que descargamos de Azure)
-        private List<IncidenteReporte> _reportesMaestros = new();
+        private List<Reporte> _reportesMaestros = new();
 
         [ObservableProperty]
         private string htmlMapa;
@@ -36,12 +36,15 @@ namespace Via360.App.ViewModels
 
             try
             {
-                await Task.Delay(800, _cts.Token); // Debounce de 800ms
+                await Task.Delay(800, _cts.Token); // Debounce para no ametrallar la API
 
-                // Pedimos a Azure (Solo pendientes/en proceso para ciudadanos)
-                //var nuevos = await _apiService.ObtenerReportesCercanos(lat, lon);
+                // Llamamos a tu ApiService que ya devuelve List<Reporte>
+                var nuevos = await _apiService.ObtenerReportesCercanosAsync();
+                System.Diagnostics.Debug.WriteLine($"Reportes cargados: {nuevos.Count}");
 
-                //_reportesMaestros = nuevos.ToList();
+                _reportesMaestros = nuevos ?? new List<Reporte>();
+
+                // Esta línea es la que dispara el GenerarHtml y actualiza el WebView
                 ActualizarMapa();
             }
             catch (OperationCanceledException) { }
@@ -57,7 +60,7 @@ namespace Via360.App.ViewModels
         {
             var filtrados = FiltroActual == "todos"
                 ? _reportesMaestros
-                : _reportesMaestros.Where(r => r.Tipo == FiltroActual).ToList();
+                : _reportesMaestros.Where(r => r.Tipo.ToString().ToLower() == FiltroActual.ToLower()).ToList();
 
             HtmlMapa = _mapaService.GenerarHtml(filtrados);
         }

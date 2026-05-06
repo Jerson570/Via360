@@ -1,26 +1,41 @@
-﻿using Via360.Shared.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using Via360.Shared.Models;
 
 namespace Via360.App.Services
 {
     public class MapaService
     {
-        public string GenerarHtml(List<IncidenteReporte> reportes)
+        public string GenerarHtml(List<Reporte> reportes)
         {
+            // 1. Filtramos los que NO tengan ubicación para evitar el crash
+            var reportesValidos = reportes.Where(r => r != null && r.Ubicacion != null).ToList();
             // Creamos los marcadores de incidentes
-            var pines = reportes.Select(r => $@"
-            L.marker([{r.Latitud.ToString(System.Globalization.CultureInfo.InvariantCulture)},
-                      {r.Longitud.ToString(System.Globalization.CultureInfo.InvariantCulture)}], {{
+            var pines = reportesValidos.Select(r => {
+                string lat = r.Ubicacion.Latitud.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                string lon = r.Ubicacion.Longitud.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+                // USAMOS EL NUEVO MÉTODO PARA EL TÍTULO
+                string tituloAmigable = ObtenerTextoAmigable(r.Tipo);
+                string icono = ObtenerIcono(r.Tipo);
+                string desc = r.Descripcion?.Replace("'", "\\'") ?? "Sin descripción";
+
+                return $@"
+        L.marker([{lat}, {lon}], {{
             icon: L.divIcon({{
-                html: '<div style=""font-size:22px"">{r.IconoTipo ?? "📍"}</div>',
-                iconSize: [30,30], className: ''
+                // ESTILO NUEVO: Fondo blanco, circular y con sombra
+                html: '<div style=""display:flex;justify-content:center;align-items:center;width:40px;height:40px;background:white;border-radius:50%;box-shadow:0 2px 5px rgba(0,0,0,0.3);border:2px solid #512BD4;font-size:22px"">{icono}</div>',
+                iconSize: [40,40], 
+                className: ''
             }})
         }}).addTo(map)
-           .bindPopup('<b>{r.IconoEstado ?? "⚪"} {(r.Tipo ?? "INCIDENTE").ToUpper()}</b><br>{r.Descripcion ?? "Sin descripción"}<br><small>👍 {r.Votos} votos</small>');
-            ");
+           .bindPopup('<div style=""font-family:sans-serif""><b style=""color:#512BD4;font-size:14px"">{tituloAmigable}</b><br><p style=""margin:5px 0"">{desc}</p><small style=""color:gray"">Estado: {r.Estado}</small></div>');";
+            });
 
             return $@"<!DOCTYPE html><html>
     <head>
@@ -75,6 +90,25 @@ namespace Via360.App.Services
 
         </script>
     </body></html>";
+        }
+        private string ObtenerIcono(TipoIncidente tipo) => tipo switch
+        {
+            TipoIncidente.Accidente => "⚠️",
+            TipoIncidente.SemáforoAveriado => "🚦", // Con tilde
+            TipoIncidente.Bache => "🕳️",
+            TipoIncidente.ObstrucciónVial => "🚧", // Con tilde
+            TipoIncidente.ObraEnLaVía => "🏗️",    // Con tilde
+            _ => "📍"
+        };
+        private string ObtenerTextoAmigable(Enum valor)
+        {
+            FieldInfo fi = valor.GetType().GetField(valor.ToString());
+            DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+
+            if (attributes != null && attributes.Length > 0)
+                return attributes[0].Description;
+
+            return valor.ToString(); // Fallback por si no tiene [Description]
         }
     }
 }

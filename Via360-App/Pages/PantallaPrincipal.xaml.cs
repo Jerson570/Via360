@@ -111,7 +111,7 @@ public partial class PantallaPrincipal : ContentPage
     private void OnFiltrarBaches(object sender, EventArgs e)
     {
         AplicarEstiloBoton(sender);
-        _viewModel.AplicarFiltroLocal("bache");
+        _viewModel.AplicarFiltroLocal("Bache");
     }
 
     private void OnFiltrarSemaforos(object sender, EventArgs e)

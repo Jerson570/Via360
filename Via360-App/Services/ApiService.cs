@@ -1,6 +1,7 @@
 ﻿using System.Buffers.Text;
 using System.Diagnostics;
 using System.Net.Http.Json;
+using System.Text.Json.Serialization;
 using System.Text;
 using System.Text.Json;
 using Via360.Shared.Models;
@@ -112,6 +113,51 @@ namespace Via360.App.Services
             {
                 Debug.WriteLine($">>>>> ERROR GET REPORTES: {ex.Message}");
                 return null;
+            }
+        }
+        public async Task<List<Reporte>> ObtenerReportesCercanosAsync()
+        {
+            try
+            {
+                string url = "api/Reportes/anonimos";
+                var response = await _httpClient.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+
+                    // 1. Deserializamos a un objeto dinámico/temporal para no romper tus clases
+                    var listaPlana = JsonSerializer.Deserialize<List<JsonElement>>(json);
+                    var reportesEstructurados = new List<Reporte>();
+
+                    foreach (var elemento in listaPlana)
+                    {
+                        // 2. Mapeo manual: Construimos el objeto Reporte como TÚ lo necesitas
+                        var reporte = new Reporte
+                        {
+                            IdReporte = elemento.GetProperty("id").GetString(),
+                            Descripcion = elemento.GetProperty("descripcion").GetString(),
+                            // Convertimos el string del JSON al Enum de C#
+                            Tipo = Enum.Parse<TipoIncidente>(elemento.GetProperty("tipo").GetString()),
+                            Estado = Enum.Parse<EstadoReporte>(elemento.GetProperty("estado").GetString()),
+
+                            // AQUÍ ESTÁ LA MAGIA: Creamos el objeto Ubicacion que falta en el JSON
+                            Ubicacion = new Ubicacion
+                            {
+                                Latitud = elemento.GetProperty("latitud").GetDouble(),
+                                Longitud = elemento.GetProperty("longitud").GetDouble()
+                            }
+                        };
+                        reportesEstructurados.Add(reporte);
+                    }
+                    return reportesEstructurados;
+                }
+                return new List<Reporte>();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($">>>>> ERROR DESERIALIZACIÓN: {ex.Message}");
+                return new List<Reporte>();
             }
         }
     }
