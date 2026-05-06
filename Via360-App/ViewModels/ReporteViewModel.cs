@@ -4,10 +4,7 @@ using System.Linq;
 using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
-using Via360.App.Services; 
-using Via360.Shared;
-using Microsoft.Maui.Devices.Sensors;
+using Via360.App.Services;
 using Via360.Shared.Models; // Para la clase Location y Geolocation
 
 namespace Via360.App.ViewModels
