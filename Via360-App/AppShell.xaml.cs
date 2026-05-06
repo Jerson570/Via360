@@ -9,7 +9,7 @@ namespace Via360.App
             InitializeComponent();
 
             Routing.RegisterRoute(nameof(PantallaPrincipal), typeof(PantallaPrincipal));
-            //Routing.RegisterRoute(nameof(PantallaPrincipalAutoridad), typeof(PantallaPrincipalAutoridad));
+            Routing.RegisterRoute(nameof(Via360.App.Pages.Autoridad.AutoridadPage), typeof(Via360.App.Pages.Autoridad.AutoridadPage));
             Routing.RegisterRoute(nameof(RegistroPage), typeof(RegistroPage));
             Routing.RegisterRoute(nameof(RecuperarPage), typeof(RecuperarPage));
             Routing.RegisterRoute(nameof(Via360.App.Pages.MisReportesPage), typeof(Via360.App.Pages.MisReportesPage));

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Via360.App.Pages;
+using Via360.App.Pages.Autoridad;
 using Via360.App.Services;
 
 namespace Via360.App.ViewModels
@@ -48,7 +49,7 @@ namespace Via360.App.ViewModels
 
                 if (rol == "Autoridad")
                 {
-                    //await Shell.Current.GoToAsync($"//{nameof(PantallaPrincipalAutoridad)}");
+                    await Shell.Current.GoToAsync($"//{nameof(Via360.App.Pages.Autoridad.AutoridadPage)}");
                     await Shell.Current.DisplayAlert("Error", "Aún no se implementa el panel de autoridad", "OK");
                     await Shell.Current.GoToAsync($"//{nameof(PantallaPrincipal)}");
                 }
