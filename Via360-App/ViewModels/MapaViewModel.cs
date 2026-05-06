@@ -28,7 +28,7 @@ namespace Via360.App.ViewModels
             _mapaService = mapaService;
         }
 
-        // El cerebro del ahorro: Solo descarga si el movimiento es grande
+        // Solo descarga si el movimiento es grande
         public async Task CargarReportesAsync(double lat, double lon)
         {
             _cts?.Cancel();
@@ -39,9 +39,9 @@ namespace Via360.App.ViewModels
                 await Task.Delay(800, _cts.Token); // Debounce de 800ms
 
                 // Pedimos a Azure (Solo pendientes/en proceso para ciudadanos)
-                var nuevos = await _apiService.ObtenerReportesCercanos(lat, lon);
+                //var nuevos = await _apiService.ObtenerReportesCercanos(lat, lon);
 
-                _reportesMaestros = nuevos.ToList();
+                //_reportesMaestros = nuevos.ToList();
                 ActualizarMapa();
             }
             catch (OperationCanceledException) { }
