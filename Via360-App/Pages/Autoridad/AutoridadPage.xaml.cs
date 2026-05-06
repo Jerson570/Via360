@@ -15,7 +15,6 @@ public partial class AutoridadPage : ContentPage
     public AutoridadPage(AutoridadViewModel viewModel)
     {
         InitializeComponent();
-        _viewModel = viewModel;
         BindingContext = viewModel;
     }
 

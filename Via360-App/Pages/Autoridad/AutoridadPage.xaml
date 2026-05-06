@@ -12,9 +12,9 @@
              Title="Autoridad">
 
     <ContentPage.Resources>
-        <!-- 1. Aquí registramos tu convertidor para que el WebView funcione -->
         <converters:HtmlSourceConverter x:Key="HtmlConv" />
     </ContentPage.Resources>
+
     <Grid RowDefinitions="Auto, 200, *">
 
         <!-- 1. BARRA SUPERIOR -->
@@ -27,32 +27,30 @@
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="20"/>
             </Border.StrokeShape>
-
             <WebView Source="{Binding HtmlMapa, Converter={StaticResource HtmlConv}}"
-             HorizontalOptions="Fill"
-             VerticalOptions="Fill" />
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Fill" />
         </Border>
 
         <!-- 3. LISTA DE REPORTES -->
-        <VerticalStackLayout Grid.Row="2" Padding="20,0,20,20" Spacing="15">
-            <Label Text="Reportes Recientes" FontSize="18" FontAttributes="Bold" TextColor="Black" Margin="5,0"/>
+        <Grid Grid.Row="2" RowDefinitions="Auto, *" Padding="20,0,20,20">
+            <Label Grid.Row="0" Text="Reportes Recientes" FontSize="18" FontAttributes="Bold" TextColor="Black" Margin="5,0,0,10"/>
 
-            <CollectionView ItemsSource="{Binding Reportes}"
+            <CollectionView Grid.Row="1" 
+                            ItemsSource="{Binding Reportes}"
                             SelectionMode="Single"
                             SelectionChangedCommand="{Binding SeleccionarReporteCommand}"
                             SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Reporte">
                         <Border Margin="0,0,0,12" Padding="15" StrokeThickness="0" BackgroundColor="White">
-
-                            <!-- BLOQUE PARA QUITAR EL NARANJA -->
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroupList>
                                     <VisualStateGroup x:Name="CommonStates">
                                         <VisualState x:Name="Normal" />
                                         <VisualState x:Name="Selected">
                                             <VisualState.Setters>
-                                                <Setter Property="BackgroundColor" Value="White" />
+                                                <Setter Property="BackgroundColor" Value="#F0F0F0" />
                                             </VisualState.Setters>
                                         </VisualState>
                                     </VisualStateGroup>
@@ -65,21 +63,25 @@
 
                             <Grid ColumnDefinitions="*, Auto">
                                 <VerticalStackLayout Grid.Column="0" Spacing="2">
-                                    <Label Text="{Binding Titulo}" FontSize="16" FontAttributes="Bold" TextColor="Black"/>
-                                    <Label Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy}'}" FontSize="12" TextColor="Gray"/>
+                                    <!-- SOLUCIÓN: Cambiamos Titulo por Tipo, que sí viene en el ApiService -->
+                                    <Label Text="{Binding TipoTextoAmigable}" FontSize="16" FontAttributes="Bold" TextColor="Black"/>
+                                    <!-- Agregamos la descripción para dar contexto -->
+                                    <Label Text="{Binding Descripcion}" FontSize="13" TextColor="#444" MaxLines="1" LineBreakMode="TailTruncation"/>
+                                    <!-- Nota: Fecha seguirá saliendo 01/01/0001 si el ApiService no la mapea -->
+                                    <Label Text="Reporte activo" FontSize="11" TextColor="Gray"/>
                                 </VerticalStackLayout>
 
-                                <Border Grid.Column="1" Padding="10,5" BackgroundColor="#1A512BD4" VerticalOptions="Center">
+                                <Border Grid.Column="1" Padding="10,5" BackgroundColor="{Binding EstadoColorHex}" Opacity="0.2" VerticalOptions="Center">
                                     <Border.StrokeShape>
                                         <RoundRectangle CornerRadius="10"/>
                                     </Border.StrokeShape>
-                                    <Label Text="{Binding Estado}" FontSize="11" TextColor="#512BD4" FontAttributes="Bold"/>
+                                    <Label Text="{Binding EstadoTexto}" FontSize="11" TextColor="Black" FontAttributes="Bold" Opacity="1"/>
                                 </Border>
                             </Grid>
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </VerticalStackLayout>
+        </Grid>
     </Grid>
 </ContentPage>
