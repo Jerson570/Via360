@@ -5,55 +5,54 @@
              Title="Crear Reporte"
              BackgroundColor="White">
     <ScrollView>
-        <VerticalStackLayout Padding="25" Spacing="20">
+        <Grid>
+            <VerticalStackLayout Padding="25" Spacing="20">
 
-            <Label Text="Nuevo Reporte" FontSize="28" FontAttributes="Bold" TextColor="#512BD4"/>
-            <Label Text="Ayúdanos a identificar el problema en la vía." TextColor="Gray"/>
+                <Label Text="Nuevo Reporte" FontSize="28" FontAttributes="Bold" TextColor="#512BD4"/>
+                <Label Text="Ayúdanos a identificar el problema en la vía." TextColor="Gray"/>
 
-            <VerticalStackLayout Spacing="5">
-                <Label Text="¿Qué tipo de problema es?" FontAttributes="Bold"/>
-                <Border StrokeShape="RoundRectangle 10" BackgroundColor="White" Padding="5">
-                    <Picker x:Name="PickerTipo" Title="Selecciona el incidente"/>
-                </Border>
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="¿Qué tipo de problema es?" FontAttributes="Bold"/>
+                    <Border StrokeShape="RoundRectangle 10" BackgroundColor="White" Padding="5">
+                        <Picker Title="Selecciona el incidente"
+                                TitleColor="Gray"
+                                TextColor="Black"
+                                ItemsSource="{Binding ListaNombresTipos}"
+                                SelectedItem="{Binding NombreTipoSeleccionado}"
+                                HorizontalOptions="FillAndExpand"/>
+                    </Border>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Cuéntanos más detalles" FontAttributes="Bold" />
+                    <Border StrokeShape="RoundRectangle 10" BackgroundColor="White" Padding="10">
+                        <Editor Text="{Binding Descripcion}" 
+                                TextColor="Black"
+                                Placeholder="Ej: El bache es muy profundo..." 
+                                HeightRequest="120"/>
+                    </Border>
+                </VerticalStackLayout>
+
+                <Line HorizontalOptions="Fill" Stroke="LightGray" StrokeThickness="1" Margin="0,10" />
+
+                <Button Text="Publicar Reporte" 
+                        Command="{Binding PublicarCommand}" 
+                        BackgroundColor="#512BD4" 
+                        CornerRadius="20" 
+                        HeightRequest="50"/>
+
+                <Button Text="Cancelar" 
+                        Command="{Binding CancelarCommand}" 
+                        BackgroundColor="Transparent" 
+                        TextColor="Gray"/>
+
             </VerticalStackLayout>
 
-            <VerticalStackLayout Spacing="5">
-                <Label Text="Cuéntanos más detalles" FontAttributes="Bold" />
-                <Border StrokeShape="RoundRectangle 10" BackgroundColor="White" Padding="10">
-                    <Editor x:Name="EditorDescripcion" 
-                            Placeholder="Ej: El bache es muy profundo y está después de la curva..." 
-                            HeightRequest="120"/>
-                </Border>
-            </VerticalStackLayout>
-            <VerticalStackLayout Spacing="10">
-                <Label Text="Evidencia Fotográfica" FontAttributes="Bold"/>
-
-                <Image x:Name="FotoEvidencia" 
-                       HeightRequest="200" 
-                       Aspect="AspectFill" 
-                       IsVisible="False" />
-
-                <Button Text="📷 Tomar o subir foto"
-                        Clicked="OnTomarFotoClicked"
-                        BackgroundColor="#A4B0BE"
-                        TextColor="White"
-                        CornerRadius="10"/>
-            </VerticalStackLayout>
-
-            <Line HorizontalOptions="Fill" Stroke="LightGray" StrokeThickness="1" />
-
-
-            <Button Text="Publicar Reporte" 
-                    Clicked="OnPublicarClicked" 
-                    BackgroundColor="#512BD4" 
-                    CornerRadius="20" 
-                    HeightRequest="50"/>
-
-            <Button Text="Cancelar" 
-                    Clicked="OnCancelarClicked" 
-                    BackgroundColor="Transparent" 
-                    TextColor="Gray"/>
-
-        </VerticalStackLayout>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                               IsVisible="{Binding IsBusy}"
+                               VerticalOptions="Center" 
+                               HorizontalOptions="Center"
+                               Color="#512BD4"/>
+        </Grid>
     </ScrollView>
 </ContentPage>
