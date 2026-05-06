@@ -15,6 +15,7 @@ namespace Via360.Shared.Models
         public DateTime FechaCreacion { get; set; }
         public int Votos { get; set; }
 
+
         public string IconoTipo => Tipo switch
         {
             "bache" => "🕳️",

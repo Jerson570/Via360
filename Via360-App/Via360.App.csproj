@@ -135,6 +135,9 @@
 	  <MauiXaml Update="Pages\Autoridad\AutoridadPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\Autoridad\DetalleReporteAutoridadPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\CrearReportePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

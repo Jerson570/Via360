@@ -6,7 +6,11 @@
     xmlns:local="clr-namespace:Via360.App"
     xmlns:pages="clr-namespace:Via360.App.Pages"
     xmlns:autoridad="clr-namespace:Via360.App.Pages.Autoridad"
-    Title="via360">
+    x:Name="self"
+    Title="via360"
+    FlyoutBackgroundColor="White"
+    FlyoutHeaderBehavior="Default"
+    FlyoutVerticalScrollMode="Disabled">
 
     <ShellContent
         Title="via360"
@@ -32,5 +36,37 @@
     <ShellContent 
         ContentTemplate="{DataTemplate autoridad:AutoridadPage}"
         Route="AutoridadPage"/>
+    
+   
+
+    <Shell.FlyoutHeader>
+        <Grid HeightRequest="90" BackgroundColor="White">
+            <Label Text="Via360"
+                   TextColor="#512BD4"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Margin="0,20,0,0"/>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <!-- ESTO EMPUJA EL CONTENIDO HACIA ARRIBA -->
+    <Shell.FlyoutContent>
+        <CollectionView BindingContext="{x:Reference self}" />
+    </Shell.FlyoutContent>
+
+    <!-- BOTÓN DE CERRAR SESIÓN EN EL PIE DE PÁGINA (Abajo) -->
+    <Shell.FlyoutFooter>
+        <StackLayout Padding="20">
+            <Button Text="Cerrar Sesión"
+                    Command="{Binding LogoutCommand}"
+                    TextColor="White"
+                    BackgroundColor="#512BD4"
+                    CornerRadius="15"
+                    HeightRequest="50"
+                    Margin="0,0,0,20"/>
+        </StackLayout>
+    </Shell.FlyoutFooter>
 
 </Shell>

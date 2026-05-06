@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Via360.App.Pages.Autoridad.DetalleReporteAutoridadPage"
+             Title="Detalles"
+             Shell.BackgroundColor="#512BD4"
+             Shell.TitleColor="White"
+             BackgroundColor="White">
+    <Border Grid.Row="1" Margin="0,-30,0,0" BackgroundColor="White" Padding="25,75,25,25">
+
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="30,30,0,0"/>
+        </Border.StrokeShape>
+        <ScrollView>
+            <VerticalStackLayout Spacing="30">
+
+                <!-- Sección Título -->
+                <VerticalStackLayout Spacing="2">
+                    <Label Text="TÍTULO DEL REPORTE" FontSize="10" TextColor="#512BD4" FontAttributes="Bold" CharacterSpacing="1"/>
+                    <Label Text="{Binding ReporteSeleccionado.Titulo}" FontSize="20" FontAttributes="Bold" TextColor="Black"/>
+                </VerticalStackLayout>
+
+                <!-- Sección Descripción -->
+                <VerticalStackLayout Spacing="2">
+                    <Label Text="DESCRIPCIÓN" FontSize="10" TextColor="#512BD4" FontAttributes="Bold" CharacterSpacing="1"/>
+                    <Label Text="{Binding ReporteSeleccionado.Descripcion}" FontSize="15" TextColor="#444"/>
+                </VerticalStackLayout>
+
+                <!-- Sección Ubicación -->
+                <VerticalStackLayout Spacing="2">
+                    <Label Text="UBICACIÓN" FontSize="10" TextColor="#512BD4" FontAttributes="Bold" CharacterSpacing="1"/>
+                    <HorizontalStackLayout Spacing="5">
+                        <Label Text="📍" VerticalOptions="Center"/>
+                        <Label Text="{Binding ReporteSeleccionado.Direccion}" TextColor="Gray" FontSize="13"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+
+                <!-- Sección Estado Actual -->
+                <VerticalStackLayout Spacing="2">
+                    <Label Text="ESTADO ACTUAL" FontSize="10" TextColor="#512BD4" FontAttributes="Bold" CharacterSpacing="1"/>
+                    <Label Text="{Binding ReporteSeleccionado.Estado}" FontSize="14" FontAttributes="Bold" TextColor="#512BD4"/>
+                </VerticalStackLayout>
+
+                <!-- Botón de Acción -->
+                <Button Text="Cambiar Estado" 
+                            Command="{Binding CambiarEstadoCommand}"
+                            BackgroundColor="#512BD4" 
+                            TextColor="White" 
+                            HeightRequest="50"
+                            CornerRadius="15" 
+                            Margin="0,20,0,0"
+                            FontAttributes="Bold"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Border>
+    
+</ContentPage>
