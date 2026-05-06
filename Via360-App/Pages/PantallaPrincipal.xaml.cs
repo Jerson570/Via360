@@ -81,8 +81,14 @@ public partial class PantallaPrincipal : ContentPage
 
     private async void OnNuevoReporteClicked(object sender, EventArgs e)
     {
-        // Esto abre la nueva pantalla como una "hoja" que sube desde abajo
-        await Navigation.PushModalAsync(new CrearReportePage());
+        // En lugar de hacer 'new', le pide al Handler de la App 
+        // que busque la página con todas sus dependencias inyectadas.
+        var paginaReporte = Handler.MauiContext.Services.GetService<CrearReportePage>();
+
+        if (paginaReporte != null)
+        {
+            await Navigation.PushModalAsync(paginaReporte);
+        }
     }
 
     private async void OnMisReportesClicked(object sender, EventArgs e)
