@@ -5,23 +5,21 @@ namespace Via360.App.Pages;
 
 public partial class MisReportesPage : ContentPage
 {
-	public MisReportesPage()
-	{
-		InitializeComponent();
-	}
-    public ObservableCollection<IncidenteReporte> MisReportes { get; set; } = new ObservableCollection<IncidenteReporte>();
-    protected override void OnAppearing()
+    public MisReportesPage(MisReportesViewModel viewModel)
     {
-        base.OnAppearing();
-        CargarReportesDelUsuario();
+        InitializeComponent();
+        BindingContext = viewModel;
     }
 
-    private void CargarReportesDelUsuario()
+    // MAUI lo ejecuta solo cada vez que entras a la pestaña.
+    protected override async void OnAppearing()
     {
-        // Limpiamos la lista para evitar duplicados al entrar y salir de la página
-        MisReportes.Clear();
+        base.OnAppearing();
 
-        // Aquí es donde haremos la consulta a Firebase filtrando por el ID del usuario logueado.
-
+        // Verificamos que el BindingContext sea el correcto y ejecutamos
+        if (BindingContext is MisReportesViewModel viewModel)
+        {
+            await viewModel.CargarReportesCommand.ExecuteAsync(null);
+        }
     }
 }

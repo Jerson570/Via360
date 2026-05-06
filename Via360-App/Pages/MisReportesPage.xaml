@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:conv="clr-namespace:Via360.App.Converters"
              x:Class="Via360.App.Pages.MisReportesPage"
              BackgroundColor="White"
              Shell.TitleColor="White" 
              Shell.BackgroundColor="#512BD4"
              Title="Mis Reportes">
-    
-    
+    <ContentPage.Resources>
+        <conv:EnumToDescriptionConverter x:Key="EnumConverter" />
+        <conv:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+    </ContentPage.Resources>
+
     <Grid RowDefinitions="Auto,*">
         <!-- Encabezado con el estilo de la app -->
         <Label Grid.Row="0" 
@@ -20,6 +24,7 @@
         <!-- Lista de reportes del usuario -->
         <CollectionView Grid.Row="1" 
                         x:Name="ListaReportes" 
+                        ItemsSource="{Binding Reportes}"
                         Margin="10">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -40,7 +45,7 @@
 
                             <!-- Información principal -->
                             <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                                <Label Text="{Binding Tipo}" 
+                                <Label Text="{Binding Tipo, Converter={StaticResource EnumConverter}}" 
                                        FontAttributes="Bold" 
                                        TextColor="Black" 
                                        FontSize="16"/>
@@ -73,17 +78,28 @@
 
             <!-- Vista amigable si no hay datos -->
             <CollectionView.EmptyView>
-                <VerticalStackLayout HorizontalOptions="Center" 
+                <VerticalStackLayout IsVisible="{Binding IsRefreshing, Converter={StaticResource InvertedBoolConverter}}"
+                                     HorizontalOptions="Center" 
                                      VerticalOptions="Center" 
                                      Spacing="15" 
                                      Padding="40">
                     <Label Text="📑" FontSize="60" HorizontalOptions="Center"/>
-                    <Label Text="No tienes reportes registrados aún." 
+                    <Label Text="Aún no tienes reportes registrados." 
                            TextColor="Gray" 
                            HorizontalOptions="Center"
                            HorizontalTextAlignment="Center"/>
                 </VerticalStackLayout>
             </CollectionView.EmptyView>
         </CollectionView>
+        
+        <!-- Indicador de actividad -->
+        <ActivityIndicator Grid.Row="1"
+                   IsRunning="{Binding IsRefreshing}"
+                   IsVisible="{Binding IsRefreshing}"
+                   Color="#512BD4"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   WidthRequest="50"
+                   HeightRequest="50" />
     </Grid>
 </ContentPage>
