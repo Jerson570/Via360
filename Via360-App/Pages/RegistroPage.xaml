@@ -4,7 +4,9 @@
              xmlns:viewmodels="clr-namespace:Via360.App.ViewModels"
              x:Class="Via360.App.RegistroPage"
              x:DataType="viewmodels:RegistroViewModel"
+             Shell.BackgroundColor="#512BD4"
              Title="Registrarse"
+             Shell.TitleColor="White"
              BackgroundColor="White">
 
     <!-- Grid para centrar todo verticalmente -->

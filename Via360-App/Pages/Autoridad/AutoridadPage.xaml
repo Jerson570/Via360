@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Via360.App.ViewModels"
+             xmlns:models="clr-namespace:Via360.Shared.Models;assembly=Via360.Shared" 
+             xmlns:converters="clr-namespace:Via360.App.Converters"
+             x:Class="Via360.App.Pages.Autoridad.AutoridadPage"
+             x:DataType="vm:AutoridadViewModel"
+             Shell.BackgroundColor="#512BD4"
+             Shell.TitleColor="White"
+             BackgroundColor="#F2F2F7"
+             Title="Autoridad">
+
+    <ContentPage.Resources>
+        <!-- 1. Aquí registramos tu convertidor para que el WebView funcione -->
+        <converters:HtmlSourceConverter x:Key="HtmlConv" />
+    </ContentPage.Resources>
+    <Grid RowDefinitions="Auto, 200, *">
+
+        <!-- 1. BARRA SUPERIOR -->
+        <Grid Grid.Row="0" HeightRequest="55" BackgroundColor="White" Padding="20,30,20,0">
+            <Label Text="Panel de Control" FontSize="20" FontAttributes="Bold" TextColor="#512BD4" VerticalOptions="Center"/>
+        </Grid>
+
+        <!-- 2. CUADRO DEL MAPA -->
+        <Border Grid.Row="1" Margin="20,15" StrokeThickness="0" BackgroundColor="White">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20"/>
+            </Border.StrokeShape>
+
+            <WebView Source="{Binding HtmlMapa, Converter={StaticResource HtmlConv}}"
+             HorizontalOptions="Fill"
+             VerticalOptions="Fill" />
+        </Border>
+
+        <!-- 3. LISTA DE REPORTES -->
+        <VerticalStackLayout Grid.Row="2" Padding="20,0,20,20" Spacing="15">
+            <Label Text="Reportes Recientes" FontSize="18" FontAttributes="Bold" TextColor="Black" Margin="5,0"/>
+
+            <CollectionView ItemsSource="{Binding Reportes}"
+                            SelectionMode="Single"
+                            SelectionChangedCommand="{Binding SeleccionarReporteCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Reporte">
+                        <Border Margin="0,0,0,12" Padding="15" StrokeThickness="0" BackgroundColor="White">
+
+                            <!-- BLOQUE PARA QUITAR EL NARANJA -->
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="White" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="15"/>
+                            </Border.StrokeShape>
+
+                            <Grid ColumnDefinitions="*, Auto">
+                                <VerticalStackLayout Grid.Column="0" Spacing="2">
+                                    <Label Text="{Binding Titulo}" FontSize="16" FontAttributes="Bold" TextColor="Black"/>
+                                    <Label Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy}'}" FontSize="12" TextColor="Gray"/>
+                                </VerticalStackLayout>
+
+                                <Border Grid.Column="1" Padding="10,5" BackgroundColor="#1A512BD4" VerticalOptions="Center">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="10"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="{Binding Estado}" FontSize="11" TextColor="#512BD4" FontAttributes="Bold"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

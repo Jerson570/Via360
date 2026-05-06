@@ -7,13 +7,14 @@ namespace Via360.Shared.Models
     public class IncidenteReporte
     {
         public string? Id { get; set; }
-        public string ?Tipo { get; set; }
+        public string? Tipo { get; set; }
         public string? Descripcion { get; set; }
         public double Latitud { get; set; }
         public double Longitud { get; set; }
         public string? Estado { get; set; }
         public DateTime FechaCreacion { get; set; }
         public int Votos { get; set; }
+
 
         public string IconoTipo => Tipo switch
         {

@@ -15,7 +15,7 @@ namespace Via360.Shared.Models
         public string? Cargo { get; set; }
         public string? Entidad { get; set; }
 
-        public Usuario() { }
+        
         public Usuario(string id, string nombre, string email, string rol = "Ciudadano")
         {
             this.IdUsuario = id;

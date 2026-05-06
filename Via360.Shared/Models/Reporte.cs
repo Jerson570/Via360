@@ -23,10 +23,9 @@ namespace Via360.Shared.Models
         public EstadoReporte Estado {  get; set; }
         [FirestoreProperty("urlImagen")]
         public string? UrlImagen { get; set; }
-        public Reporte()
-        {
 
-        }
+
+
         public Reporte(string IdUsuario, TipoIncidente tipoInicial, string descripcion, Ubicacion ubicacion, EstadoReporte estadoInicial, string UrlImagen)
         {
             this.IdReporte = Guid.NewGuid().ToString();
