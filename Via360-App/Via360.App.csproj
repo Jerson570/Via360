@@ -139,6 +139,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Pages\PantallaPrincipalAutoridad.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\PerfilPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -167,6 +170,12 @@
 
 	<ItemGroup>
 	  <GoogleServicesJson Include="Platforms\Android\google-services.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Pages\PantallaPrincipalAutoridad.xaml.cs">
+	    <DependentUpon>PantallaPrincipalAutoridad.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 </Project>
