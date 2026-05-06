@@ -87,9 +87,41 @@ namespace Via360.Api.Services
         public async Task<List<Reporte>> ObtenerReportesPorUsuario(string uid)
         {
             CollectionReference reportesRef = _db.Collection("reportes");
-            Query consulta = reportesRef.WhereEqualTo("idUsuario", uid);
+            Query consulta = reportesRef.WhereEqualTo("idUsuario", uid).OrderByDescending("fecha");
             QuerySnapshot snapshot = await consulta.GetSnapshotAsync();
-            return snapshot.Documents.Select(d => d.ConvertTo<Reporte>()).ToList();
+
+            var listaReportes = new List<Reporte>();
+
+            foreach (DocumentSnapshot item in snapshot.Documents)
+            {
+                if (!item.Exists) continue;
+
+                var data = item.ToDictionary();
+
+                // se extrae la ubicación (que es un mapa/diccionario en Firestore)
+                var ubicacionData = data["ubicacion"] as Dictionary<string, object>;
+
+                var reporte = new Reporte
+                {
+                    IdReporte = data["idReporte"]?.ToString(),
+                    IdUsuario = data["idUsuario"]?.ToString(),
+                    Descripcion = data["descripcion"]?.ToString(),
+                    // se convierte el string de la DB de vuelta al Enum de C#
+                    Tipo = Enum.Parse<TipoIncidente>(data["tipo"]?.ToString() ?? "Otro"),
+                    Estado = Enum.Parse<EstadoReporte>(data["estado"]?.ToString() ?? "Pendiente"),
+                    // Manejo de la fecha de Firestore
+                    Fecha = ((Timestamp)data["fecha"]).ToDateTime(),
+                    Ubicacion = new Ubicacion(
+                        Convert.ToDouble(ubicacionData["latitud"]),
+                        Convert.ToDouble(ubicacionData["longitud"]),
+                        ubicacionData["direccionTexto"]?.ToString()
+                    )
+                };
+
+                listaReportes.Add(reporte);
+            }
+
+            return listaReportes;
         }
     }
 }
