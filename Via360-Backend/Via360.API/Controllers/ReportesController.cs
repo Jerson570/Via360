@@ -48,5 +48,26 @@ namespace Via360.API.Controllers
                 return StatusCode(500, $"Error al crear el reporte: {ex.Message}");
             }
         }
+
+        [HttpGet("usuario/{userId}")]
+        public async Task<ActionResult<List<Reporte>>> GetReportesPorUsuario(string userId)
+        {
+            try
+            {
+                var reportes = await _firestoreService.ObtenerReportesPorUsuario(userId);
+
+                if (reportes == null || !reportes.Any())
+                {
+                    return Ok("No se encontraron reportes para este usuario.");
+                }
+
+                return Ok(reportes);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($">>>>> ERROR EN GET REPORTES: {ex.Message}");
+                return StatusCode(500, $"Error interno: {ex.Message}");
+            }
+        }
     }
 }
