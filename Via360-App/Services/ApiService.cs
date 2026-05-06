@@ -55,6 +55,20 @@ namespace Via360.App.Services
                 return false;
             }
         }
+        public async Task<string> ObtenerRolUsuario(string userId)
+        {
+            try
+            {
+                string endpoint = $"api/Usuarios/rol/{userId}";
+                var response = await _httpClient.GetFromJsonAsync<RoleResponse>(endpoint);
+                return response?.Rol ?? "Ciudadano";
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($">>>>> ERROR GET ROL: {ex.Message}");
+                return "Ciudadano";
+            }
+        }
         public async Task<bool> GuardarReporte(object reporteData)
         {
             try
@@ -101,4 +115,5 @@ namespace Via360.App.Services
             }
         }
     }
+    public class RoleResponse { public string Rol { get; set; } }
 }
