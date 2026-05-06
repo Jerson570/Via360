@@ -11,30 +11,40 @@ namespace Via360.App.Services
 {
     public class MapaService
     {
-        public string GenerarHtml(List<Reporte> reportes)
+        public string GenerarHtml(List<Reporte> reportes, bool esAutoridad = false)
         {
             // 1. Filtramos los que NO tengan ubicación para evitar el crash
             var reportesValidos = reportes.Where(r => r != null && r.Ubicacion != null).ToList();
-            // Creamos los marcadores de incidentes
+
             var pines = reportesValidos.Select(r => {
                 string lat = r.Ubicacion.Latitud.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 string lon = r.Ubicacion.Longitud.ToString(System.Globalization.CultureInfo.InvariantCulture);
-
-                // USAMOS EL NUEVO MÉTODO PARA EL TÍTULO
                 string tituloAmigable = ObtenerTextoAmigable(r.Tipo);
                 string icono = ObtenerIcono(r.Tipo);
                 string desc = r.Descripcion?.Replace("'", "\\'") ?? "Sin descripción";
 
+                // LÓGICA DE COLOR DINÁMICA
+                string colorBorde = "#512BD4"; // Morado estándar Ciudadano
+                if (esAutoridad)
+                {
+                    colorBorde = r.Estado switch
+                    {
+                        EstadoReporte.Pendiente => "#FF3B30", // Rojo
+                        EstadoReporte.EnProceso => "#FF9500", // Naranja
+                        EstadoReporte.Resuelto => "#4CD964",  // Verde
+                        _ => "#512BD4"
+                    };
+                }
+
                 return $@"
         L.marker([{lat}, {lon}], {{
             icon: L.divIcon({{
-                // ESTILO NUEVO: Fondo blanco, circular y con sombra
-                html: '<div style=""display:flex;justify-content:center;align-items:center;width:40px;height:40px;background:white;border-radius:50%;box-shadow:0 2px 5px rgba(0,0,0,0.3);border:2px solid #512BD4;font-size:22px"">{icono}</div>',
+                html: '<div style=""display:flex;justify-content:center;align-items:center;width:40px;height:40px;background:white;border-radius:50%;box-shadow:0 2px 5px rgba(0,0,0,0.3);border:3px solid {colorBorde};font-size:22px"">{icono}</div>',
                 iconSize: [40,40], 
                 className: ''
             }})
         }}).addTo(map)
-           .bindPopup('<div style=""font-family:sans-serif""><b style=""color:#512BD4;font-size:14px"">{tituloAmigable}</b><br><p style=""margin:5px 0"">{desc}</p><small style=""color:gray"">Estado: {r.Estado}</small></div>');";
+           .bindPopup('<div style=""font-family:sans-serif""><b style=""color:{colorBorde};font-size:14px"">{tituloAmigable}</b><br><p style=""margin:5px 0"">{desc}</p><small style=""color:gray"">Estado: {r.Estado}</small></div>');";
             });
 
             return $@"<!DOCTYPE html><html>
