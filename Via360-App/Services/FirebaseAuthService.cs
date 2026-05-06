@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using CloudinaryDotNet.Core;
 using Firebase.Auth;
 using Firebase.Auth.Providers;
 
@@ -48,6 +49,10 @@ namespace Via360.App.Services
             {
                 return null;
             }
+        }
+        public async Task<string> GetActualUserId()
+        {
+            return await Task.FromResult(_authClient.User?.Uid);
         }
         public bool IsLoggedIn() => _authClient.User != null;
         public void Logout() => _authClient.SignOut();
