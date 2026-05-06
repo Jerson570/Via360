@@ -1,8 +1,9 @@
 ﻿using System.Buffers.Text;
-using System.Net.Http.Json;
 using System.Diagnostics;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
+using Via360.Shared.Models;
 
 namespace Via360.App.Services
 {
@@ -77,6 +78,26 @@ namespace Via360.App.Services
                     Debug.WriteLine($">>>>> DETALLE: {ex.InnerException.Message}");
                 }
                 return false;
+            }
+        }
+        public async Task<List<Reporte>> ObtenerMisReportes(string userId)
+        {
+            try
+            {
+                string endpoint = $"api/Reportes/usuario/{userId}";
+                var response = await _httpClient.GetAsync(endpoint);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadFromJsonAsync<List<Reporte>>();
+                }
+
+                return new List<Reporte>();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($">>>>> ERROR GET REPORTES: {ex.Message}");
+                return null;
             }
         }
     }
