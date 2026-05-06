@@ -123,7 +123,52 @@ namespace Via360.Api.Services
 
             return listaReportes;
         }
+        public async Task<List<object>> ObtenerReportesAnonimos()
+        {
+            try
+            {
+                // 1. Apuntamos a la colección de reportes
+                CollectionReference reportesRef = _db.Collection("reportes");
 
+                // 2. Traemos los últimos 100 para no reventar la cuota de lectura
+                QuerySnapshot snapshot = await reportesRef.OrderByDescending("fecha").Limit(100).GetSnapshotAsync();
+
+                var listaAnonima = new List<object>();
+
+                foreach (DocumentSnapshot doc in snapshot.Documents)
+                {
+                    if (doc.Exists)
+                    {
+                        var data = doc.ToDictionary();
+
+                        double lat = 0;
+                        double lon = 0;
+
+                        if (data.ContainsKey("ubicacion") && data["ubicacion"] is IDictionary<string, object> ub)
+                        {
+                            lat = ub.ContainsKey("latitud") ? Convert.ToDouble(ub["latitud"]) : 0;
+                            lon = ub.ContainsKey("longitud") ? Convert.ToDouble(ub["longitud"]) : 0;
+                        }
+                        // Mapeamos solo lo necesario para el mapa 
+                        listaAnonima.Add(new
+                        {
+                            id = doc.Id,
+                            tipo = data.ContainsKey("tipo") ? data["tipo"].ToString() : "Incidente",
+                            descripcion = data.ContainsKey("descripcion") ? data["descripcion"].ToString() : "Sin descripción", // Agregado
+                            latitud = lat,
+                            longitud = lon,
+                            estado = data.ContainsKey("estado") ? data["estado"].ToString() : "Pendiente"
+                        });
+                    }
+                }
+                return listaAnonima;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"ERROR CRÍTICO EN FIREBASE: {ex.Message}");
+                return new List<object>();
+            }
+        }
         public async Task<string> ObtenerRolUsuarioAsync(string uid)
         {
             try

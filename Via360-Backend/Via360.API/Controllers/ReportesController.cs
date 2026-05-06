@@ -69,5 +69,19 @@ namespace Via360.API.Controllers
                 return StatusCode(500, $"Error interno: {ex.Message}");
             }
         }
+
+        [HttpGet("anonimos")]
+        public async Task<IActionResult> GetReportesAnonimos()
+        {
+            // Llamamos al servicio que acabamos de modificar
+            var reportes = await _firestoreService.ObtenerReportesAnonimos();
+
+            if (reportes == null || !reportes.Any())
+            {
+                return NoContent(); // 204 si no hay nada que mostrar en Itagüí
+            }
+
+            return Ok(reportes); // 200 con el JSON limpio
+        }
     }
 }
