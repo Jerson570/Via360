@@ -54,5 +54,30 @@ namespace Via360.App.Services
                 return false;
             }
         }
+        public async Task<bool> GuardarReporte(object reporteData)
+        {
+            try
+            {
+                string endpoint = "api/Reportes/crear";
+                Debug.WriteLine($">>>>>>>> LLAMANDO A: {_httpClient.BaseAddress}{endpoint}");
+                var response = await _httpClient.PostAsJsonAsync(endpoint, reporteData);
+                if (!response.IsSuccessStatusCode)
+                {
+                    var contenidoError = await response.Content.ReadAsStringAsync();
+                    Debug.WriteLine($" >>>>>>>>> AZURE RESPONDIÓ: ({response.StatusCode}): {contenidoError}");
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($">>>>> ERROR CRÍTICO DE RED: {ex.Message}");
+                if (ex.InnerException != null)
+                {
+                    Debug.WriteLine($">>>>> DETALLE: {ex.InnerException.Message}");
+                }
+                return false;
+            }
+        }
     }
 }
