@@ -10,16 +10,17 @@ namespace Via360.App.Services
     {
         public string GenerarHtml(List<IncidenteReporte> reportes)
         {
+            // Creamos los marcadores de incidentes
             var pines = reportes.Select(r => $@"
-        L.marker([{r.Latitud.ToString(System.Globalization.CultureInfo.InvariantCulture)},
-                   {r.Longitud.ToString(System.Globalization.CultureInfo.InvariantCulture)}], {{
+            L.marker([{r.Latitud.ToString(System.Globalization.CultureInfo.InvariantCulture)},
+                      {r.Longitud.ToString(System.Globalization.CultureInfo.InvariantCulture)}], {{
             icon: L.divIcon({{
                 html: '<div style=""font-size:22px"">{r.IconoTipo ?? "📍"}</div>',
                 iconSize: [30,30], className: ''
             }})
         }}).addTo(map)
-          .bindPopup('<b>{r.IconoEstado ?? "⚪"} {(r.Tipo ?? "INCIDENTE").ToUpper()}</b><br>{r.Descripcion ?? "Sin descripción"}<br><small>👍 {r.Votos} votos</small>');
-    ");
+           .bindPopup('<b>{r.IconoEstado ?? "⚪"} {(r.Tipo ?? "INCIDENTE").ToUpper()}</b><br>{r.Descripcion ?? "Sin descripción"}<br><small>👍 {r.Votos} votos</small>');
+            ");
 
             return $@"<!DOCTYPE html><html>
     <head>
@@ -29,24 +30,51 @@ namespace Via360.App.Services
         <style>
             body{{margin:0;padding:0}} 
             #map{{width:100vw;height:100vh}}
-            /* Ajuste visual para que el zoom no quede pegado a la barra de navegación */
             .leaflet-bottom {{ margin-bottom: 110px; }} 
         </style>
     </head>
-    <body><div id='map'></div>
-    <script>
-        // 1. Inicializamos el mapa DESACTIVANDO el zoom por defecto (zoomControl: false)
-        var map = L.map('map', {{ zoomControl: false }}).setView([6.2314, -75.6148], 15);
-        
-        L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
-            attribution: '© OpenStreetMap', maxZoom: 19
-        }}).addTo(map);
+    <body>
+        <div id='map'></div>
+        <script>
+            // --- 1. CONFIGURACIÓN INICIAL DEL MAPA ---
+            var map = L.map('map', {{ zoomControl: false }}).setView([6.17, -75.61], 15);
+            
+            L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
+                attribution: '© OpenStreetMap', maxZoom: 19
+            }}).addTo(map);
 
-        // 2. Agregamos el control de zoom manualmente en la esquina inferior izquierda
-        L.control.zoom({{ position: 'bottomleft' }}).addTo(map);
+            L.control.zoom({{ position: 'bottomleft' }}).addTo(map);
 
-        {string.Join("\n", pines)}
-    </script></body></html>";
+            // --- 2. LÓGICA DE UBICACIÓN (LO NUEVO) ---
+            var userMarker = null;
+
+            // Esta función la llamaremos desde C# usando EvaluateJavaScriptAsync
+            function actualizarUbicacionUsuario(lat, lon) {{
+                if (userMarker) {{
+                    userMarker.setLatLng([lat, lon]);
+                }} else {{
+                    userMarker = L.circleMarker([lat, lon], {{
+                        radius: 9,
+                        fillColor: '#4285F4',
+                        color: 'white',
+                        weight: 3,
+                        opacity: 1,
+                        fillOpacity: 1
+                    }}).addTo(map).bindPopup('Tú estás aquí');
+                }}
+            }}
+
+            function centrarEnUsuario() {{
+                if (userMarker) {{
+                    map.setView(userMarker.getLatLng(), 16);
+                }}
+            }}
+
+            // --- 3. RENDERIZADO DE PINES DE INCIDENTES ---
+            {string.Join("\n", pines)}
+
+        </script>
+    </body></html>";
         }
     }
 }
