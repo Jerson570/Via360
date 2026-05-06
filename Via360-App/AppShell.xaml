@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Via360.App"
     xmlns:pages="clr-namespace:Via360.App.Pages"
+    xmlns:autoridad="clr-namespace:Via360.App.Pages.Autoridad"
     Title="via360">
 
     <ShellContent
@@ -26,5 +27,10 @@
     <ShellContent
         ContentTemplate="{DataTemplate pages:PantallaPrincipal}"
         Route="PantallaPrincipal"/>
+
+        <!-- Pantalla principal autoridad -->
+    <ShellContent 
+        ContentTemplate="{DataTemplate autoridad:AutoridadPage}"
+        Route="AutoridadPage"/>
 
 </Shell>

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Via360.App.ViewModels"
+             xmlns:models="clr-namespace:Via360.App.Models" 
              x:Class="Via360.App.Pages.Autoridad.AutoridadPage"
+             x:DataType="vm:AutoridadViewModel"
              Shell.FlyoutItemIsVisible="False"
              BackgroundColor="#F2F2F7"
              Title="AutoridadPage">
@@ -35,9 +38,12 @@
         <VerticalStackLayout Grid.Row="2" Padding="20,0,20,20" Spacing="15">
             <Label Text="Reportes Recientes" FontSize="18" FontAttributes="Bold" TextColor="Black" Margin="5,0"/>
 
-            <CollectionView x:Name="CrvReportesAutoridad" SelectionMode="Single" SelectionChanged="OnReporteSelected">
+            <CollectionView ItemsSource="{Binding Reportes}"
+                            SelectionMode="Single"
+                            SelectionChangedCommand="{Binding SeleccionarReporteCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="models:IncidenteAutoridad">
                         <Border Margin="0,0,0,12" Padding="15" StrokeThickness="0" BackgroundColor="White">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="15"/>

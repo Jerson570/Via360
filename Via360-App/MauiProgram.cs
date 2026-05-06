@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Via360.App.Pages;
+using Via360.App.Pages.Autoridad;
 using Via360.App.Services;
 using Via360.App.ViewModels;
 
@@ -31,13 +32,14 @@ namespace Via360.App
 
             // registro de ViewModels
             builder.Services.AddTransient<LoginViewModel>();
+            builder.Services.AddTransient<AutoridadViewModel>();
             builder.Services.AddTransient<RegistroViewModel>();
             builder.Services.AddTransient<ReporteViewModel>();
             builder.Services.AddTransient<MisReportesViewModel>();
 
             // registro de Páginas
             builder.Services.AddTransient<PantallaPrincipal>();
-            builder.Services.AddTransient<Via360.App.Pages.Autoridad.AutoridadPage>();
+            builder.Services.AddTransient<AutoridadPage>();
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<PerfilPage>();
             builder.Services.AddTransient<RegistroPage>();
