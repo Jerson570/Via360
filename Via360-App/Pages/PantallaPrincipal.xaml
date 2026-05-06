@@ -13,11 +13,16 @@
     </ContentPage.Resources>
 
     <Grid>
-        <WebView Source="{Binding HtmlMapa, Converter={StaticResource HtmlConv}}"
+        
+        <WebView x:Name="MiWebView"
+                 ZIndex="0"
+                 Navigated="OnWebViewNavigated"
+                 Source="{Binding HtmlMapa, Converter={StaticResource HtmlConv}}"
                  HorizontalOptions="Fill"
                  VerticalOptions="Fill" />
 
         <ScrollView Orientation="Horizontal" 
+                    ZIndex="1"
                     VerticalOptions="Start" 
                     HorizontalOptions="Fill"
                     Margin="10,60,10,0" 
@@ -29,8 +34,23 @@
                 <Button Text="🚨 Accidentes" Style="{StaticResource ChipStyle}" Clicked="OnFiltrarAccidentes"/>
             </HorizontalStackLayout>
         </ScrollView>
+        <!-- Botón para centrar en el usuario (encima del mapa) -->
+        <Button Text="🎯"
+                ZIndex="10"
+                FontSize="20"
+                BackgroundColor="White"
+                TextColor="#512BD4"
+                HeightRequest="50"
+                WidthRequest="50"
+                CornerRadius="25"
+                VerticalOptions="End"
+                HorizontalOptions="End"
+                Margin="0,0,20,180" 
+                Shadow="{Shadow Brush=Black, Offset='0,2', Radius=5, Opacity=0.2}"
+                Clicked="OnCentrarUsuarioClicked"/>
 
         <Button Text="+"
+                ZIndex="10"
                 FontSize="30"
                 FontAttributes="Bold"
                 TextColor="White"
