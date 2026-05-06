@@ -28,11 +28,14 @@ namespace Via360.App
             //autenticación
             builder.Services.AddSingleton<IAuthService, FirebaseAuthService>();
             builder.Services.AddSingleton<ApiService>();
+            //mapa
+            builder.Services.AddSingleton<MapaService>();
 
             // registro de ViewModels
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<RegistroViewModel>();
             builder.Services.AddTransient<ReporteViewModel>();
+            builder.Services.AddTransient<MapaViewModel>();
             builder.Services.AddTransient<MisReportesViewModel>();
 
             // registro de Páginas

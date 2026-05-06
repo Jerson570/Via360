@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Via360.App.Services
 {
-    internal class MapaService
+    public class MapaService
     {
         public string GenerarHtml(List<IncidenteReporte> reportes)
         {
