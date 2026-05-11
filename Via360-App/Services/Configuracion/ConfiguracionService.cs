@@ -16,14 +16,13 @@ namespace Via360.App.Services
             {
                 var assembly = IntrospectionExtensions.GetTypeInfo(typeof(ConfiguracionService)).Assembly;
 
-                Stream stream = assembly.GetManifestResourceStream("Via360.App.Resources.Raw.appsettings.json");
+                Stream stream = assembly.GetManifestResourceStream("appsettings.json");
 
                 if (stream == null)
                 {
                     // para ver en la consola qué nombres de recursos existen realmente
-                    var names = assembly.GetManifestResourceNames();
-                    foreach (var name in names) System.Diagnostics.Debug.WriteLine($"Recurso: {name}");
-                    throw new Exception(">>>>> No se encontró el archivo appsettings.json como Recurso Incrustado.");
+                    var nombres = assembly.GetManifestResourceNames();
+                    throw new Exception($"ERROR: Solo existen estos recursos: {string.Join(", ", nombres)}");
                 }
 
                 using var reader = new StreamReader(stream);

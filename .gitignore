@@ -373,3 +373,7 @@ appsettings.Development.json
 
 # configuración servicios de google
 google-services.json
+
+# Android Signing Key
+*.keystore
+*.jks
